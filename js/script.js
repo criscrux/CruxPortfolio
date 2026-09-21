@@ -4,6 +4,8 @@ const learnMoreButton = document.getElementById("learnMoreButton");
 const loginLink = document.getElementById("loginLink");
 const userStatus = document.getElementById("userStatus");
 
+const BASE_URL = import.meta.env.BASE_URL;
+
 if (learnMoreButton) {
     learnMoreButton.addEventListener("click", function () {
         alert("Welcome to Crux's Portfolio!");
@@ -11,6 +13,7 @@ if (learnMoreButton) {
 }
 
 async function checkLogin() {
+
     const { data: userData, error: userError } =
         await supabase.auth.getUser();
 
@@ -20,38 +23,55 @@ async function checkLogin() {
     }
 
     if (!userData.user) {
-        userStatus.textContent = "Not logged in";
+        if (userStatus) {
+            userStatus.textContent = "Not logged in";
+        }
         return;
     }
 
     const user = userData.user;
 
-    // Get the user's profile and role
-    const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("username, role")
-        .eq("id", user.id)
-        .single();
+    const { data: profile, error: profileError } =
+        await supabase
+            .from("profiles")
+            .select("username, role")
+            .eq("id", user.id)
+            .single();
 
     if (profileError) {
         console.error(profileError);
-        userStatus.textContent = "Logged in, but profile could not be loaded.";
+
+        if (userStatus) {
+            userStatus.textContent =
+                "Logged in, but profile could not be loaded.";
+        }
+
         return;
     }
 
-    userStatus.textContent =
-        "Logged in as " + profile.username + " | Role: " + profile.role;
+    if (userStatus) {
+        userStatus.textContent =
+            "Logged in as " +
+            profile.username +
+            " | Role: " +
+            profile.role;
+    }
 
-    loginLink.textContent = "Logout";
-    loginLink.href = "#";
+    if (loginLink) {
+        loginLink.textContent = "Logout";
+        loginLink.href = "#";
 
-    loginLink.addEventListener("click", async function (event) {
-        event.preventDefault();
+        loginLink.addEventListener("click", async function (event) {
 
-        await supabase.auth.signOut();
+            event.preventDefault();
 
-        window.location.reload();
-    });
+            await supabase.auth.signOut({
+                scope: "local"
+            });
+
+            window.location.reload();
+        });
+    }
 }
 
 checkLogin();
