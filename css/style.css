@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #222;
+    background: #f5f5f5;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+/* Header */
+
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+.site-header h1 {
+    margin: 0 0 15px;
+}
+
+nav a {
+    margin-right: 20px;
+    color: #222;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+/* Hero */
+
+.hero {
+    padding: 100px 0;
+    background: #eaeaea;
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+/* About */
+
+.about {
+    padding: 70px 0;
+    background: white;
+}
+
+.about p {
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+
+/* Footer */
+
+footer {
+    padding: 25px 0;
+    background: #222;
+    color: white;
+    text-align: center;
+}
