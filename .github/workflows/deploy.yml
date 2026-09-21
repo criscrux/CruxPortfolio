@@ -40,6 +40,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare Pages
+        run: |
+          cp -r dist/html/* dist/
+          rm -rf dist/html
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
@@ -51,4 +56,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
-
