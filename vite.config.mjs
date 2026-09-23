@@ -16,7 +16,8 @@ export default defineConfig({
             input: {
                 index: resolve(__dirname, "html/index.html"),
                 login: resolve(__dirname, "html/login.html"),
-                private: resolve(__dirname, "html/private.html")
+                private: resolve(__dirname, "html/private.html"),
+                programs: resolve(__dirname, "html/programs.html")
             }
         }
     }

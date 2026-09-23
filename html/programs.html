@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Programs - Crux Portfolio</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container">
+
+        <h1>Crux Portfolio</h1>
+
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./programs.html">Programs</a>
+            <a href="./private.html"
+               id="privateLink"
+               style="display: none;">
+                Private
+            </a>
+            <a href="./login.html" id="loginLink">
+                Login
+            </a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="programs-page">
+
+        <div class="container">
+
+            <h2>Programs</h2>
+
+            <p class="programs-intro">
+                A collection of programs and code projects.
+            </p>
+
+
+            <!-- PROGRAM 1 -->
+
+            <article class="program-card">
+
+                <div class="program-header">
+
+                    <div>
+                        <h3>Java Quiz Program</h3>
+
+                        <span class="program-language">
+                            Java
+                        </span>
+                    </div>
+
+                    <button
+                        class="copy-button"
+                        data-copy-target="javaQuiz">
+                        Copy
+                    </button>
+
+                </div>
+
+
+                <pre><code id="javaQuiz">import java.util.Scanner;
+
+public class Quiz1 {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+
+        System.out.println("Hello, " + name + "!");
+
+        input.close();
+    }
+}</code></pre>
+
+            </article>
+
+
+            <!-- ADD MORE PROGRAMS HERE -->
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container">
+
+        <p>
+            © 2026 Crux Portfolio
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script type="module" src="../js/programs.js"></script>
+
+</body>
+</html>

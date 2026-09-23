@@ -31,14 +31,14 @@ async function checkAccess() {
     }
 
     const allowedRoles = [
-        "viewer",
-        "contributor",
+        "partner",
         "admin"
     ];
 
     if (!allowedRoles.includes(profile.role)) {
         privateMessage.textContent =
             "You do not have permission to view this page.";
+
         return;
     }
 
@@ -49,6 +49,7 @@ async function checkAccess() {
 }
 
 if (logoutLink) {
+
     logoutLink.addEventListener("click", async function (event) {
 
         event.preventDefault();
