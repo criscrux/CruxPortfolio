@@ -1,84 +1,329 @@
 import { supabase } from "./supabase.js";
 
-const learnMoreButton = document.getElementById("learnMoreButton");
-const loginLink = document.getElementById("loginLink");
-const userStatus = document.getElementById("userStatus");
 
-const programsLink = document.getElementById("programsLink");
-const privateLink = document.getElementById("privateLink");
+const programsLink =
+    document.getElementById("programsLink");
 
-const BASE_URL = import.meta.env.BASE_URL;
+const privateLink =
+    document.getElementById("privateLink");
 
-if (learnMoreButton) {
-    learnMoreButton.addEventListener("click", function () {
-        alert("Welcome to Crux's Portfolio!");
-    });
+const loginButton =
+    document.getElementById("loginButton");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const mobileMenuButton =
+    document.getElementById("mobileMenuButton");
+
+const sidebarOverlay =
+    document.getElementById("sidebarOverlay");
+
+const sidebarLinks =
+    document.querySelectorAll(
+        ".sidebar-link[data-section]"
+    );
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+function closeSidebar() {
+
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.classList.remove("show");
+    }
+
+    if (mobileMenuButton) {
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
 }
+
+
+function toggleSidebar() {
+
+    if (!sidebar) {
+        return;
+    }
+
+    const isOpen =
+        sidebar.classList.toggle("open");
+
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.classList.toggle(
+            "show",
+            isOpen
+        );
+
+    }
+
+
+    if (mobileMenuButton) {
+
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    }
+
+}
+
+
+if (mobileMenuButton) {
+
+    mobileMenuButton.addEventListener(
+        "click",
+        toggleSidebar
+    );
+
+}
+
+
+if (sidebarOverlay) {
+
+    sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+}
+
+
+/*
+    Close the sidebar after
+    selecting any sidebar link.
+*/
+
+document.querySelectorAll(
+    ".sidebar-link"
+).forEach(function (link) {
+
+    link.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+});
+
+
+/* ========================================
+   ACTIVE SECTION
+======================================== */
+
+function setActiveSection(sectionId) {
+
+    sidebarLinks.forEach(function (link) {
+
+        const linkSection =
+            link.dataset.section;
+
+        link.classList.toggle(
+            "active",
+            linkSection === sectionId
+        );
+
+    });
+
+}
+
+
+/*
+    Determine the active section
+    based on the user's scroll position.
+*/
+
+function updateActiveSection() {
+
+    const home =
+        document.getElementById("home");
+
+    const about =
+        document.getElementById("about");
+
+
+    if (!home || !about) {
+        return;
+    }
+
+
+    /*
+        The point used to determine
+        which section is active.
+
+        This is slightly below the
+        top of the screen.
+    */
+
+    const scrollPoint =
+        window.scrollY +
+        window.innerHeight * 0.35;
+
+
+    if (
+        scrollPoint >= about.offsetTop
+    ) {
+
+        setActiveSection("about");
+
+    } else {
+
+        setActiveSection("home");
+
+    }
+
+}
+
+
+/*
+    Update immediately when the
+    page loads and whenever the
+    user scrolls.
+*/
+
+updateActiveSection();
+
+
+window.addEventListener(
+    "scroll",
+    updateActiveSection,
+    {
+        passive: true
+    }
+);
+
+
+/* ========================================
+   ROLE-BASED ACCESS
+======================================== */
 
 async function checkLogin() {
 
-    const { data: userData, error: userError } =
-        await supabase.auth.getUser();
+    const {
+        data: userData,
+        error: userError
+    } = await supabase.auth.getUser();
+
+
+    /* --------------------------------
+       ERROR
+    -------------------------------- */
 
     if (userError) {
-        console.error(userError);
+
+        console.error(
+            "User error:",
+            userError
+        );
+
         return;
+
     }
 
-    // User is not logged in
+
+    /* --------------------------------
+       NOT LOGGED IN
+    -------------------------------- */
+
     if (!userData.user) {
 
-        if (userStatus) {
-            userStatus.textContent = "Not logged in";
+        if (loginButton) {
+
+            loginButton.style.display =
+                "inline-flex";
+
         }
+
 
         if (programsLink) {
-            programsLink.style.display = "none";
+
+            programsLink.style.display =
+                "none";
+
         }
+
 
         if (privateLink) {
-            privateLink.style.display = "none";
+
+            privateLink.style.display =
+                "none";
+
         }
 
-        return;
-    }
-
-    const user = userData.user;
-
-    const { data: profile, error: profileError } =
-        await supabase
-            .from("profiles")
-            .select("username, role")
-            .eq("id", user.id)
-            .single();
-
-    if (profileError || !profile) {
-
-        console.error(profileError);
-
-        if (userStatus) {
-            userStatus.textContent =
-                "Logged in, but profile could not be loaded.";
-        }
 
         return;
+
     }
 
-    const username = profile.username;
-    const role = profile.role;
 
-    // Show login status
-    if (userStatus) {
-        userStatus.textContent =
-            "Logged in as " +
-            username +
-            " | Role: " +
-            role;
+    /* --------------------------------
+       LOGGED IN
+    -------------------------------- */
+
+    const user =
+        userData.user;
+
+
+    /*
+        Hide Login after
+        authentication.
+    */
+
+    if (loginButton) {
+
+        loginButton.style.display =
+            "none";
+
     }
 
-    // --------------------------------
-    // PROGRAMS ACCESS
-    // --------------------------------
+
+    /* --------------------------------
+       LOAD PROFILE
+    -------------------------------- */
+
+    const {
+        data: profile,
+        error: profileError
+    } = await supabase
+        .from("profiles")
+        .select("username, role")
+        .eq("id", user.id)
+        .single();
+
+
+    if (
+        profileError ||
+        !profile
+    ) {
+
+        console.error(
+            "Profile error:",
+            profileError
+        );
+
+        return;
+
+    }
+
+
+    const role =
+        profile.role;
+
+
+    /* --------------------------------
+       PROGRAMS ACCESS
+    -------------------------------- */
 
     const programsRoles = [
         "classmate",
@@ -87,52 +332,43 @@ async function checkLogin() {
         "admin"
     ];
 
+
     if (
         programsLink &&
         programsRoles.includes(role)
     ) {
-        programsLink.style.display = "inline-block";
+
+        programsLink.style.display =
+            "flex";
+
     }
 
-    // --------------------------------
-    // PRIVATE ACCESS
-    // --------------------------------
+
+    /* --------------------------------
+       PRIVATE ACCESS
+    -------------------------------- */
 
     const privateRoles = [
         "partner",
         "admin"
     ];
 
+
     if (
         privateLink &&
         privateRoles.includes(role)
     ) {
-        privateLink.style.display = "inline-block";
+
+        privateLink.style.display =
+            "flex";
+
     }
 
-    // --------------------------------
-    // LOGOUT
-    // --------------------------------
-
-    if (loginLink) {
-
-        loginLink.textContent = "Logout";
-        loginLink.href = "#";
-
-        loginLink.addEventListener(
-            "click",
-            async function (event) {
-
-                event.preventDefault();
-
-                await supabase.auth.signOut({
-                    scope: "local"
-                });
-
-                window.location.reload();
-            }
-        );
-    }
 }
+
+
+/* ========================================
+   START
+======================================== */
 
 checkLogin();

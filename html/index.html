@@ -12,109 +12,180 @@
 
 <body>
 
-    <header class="site-header">
+    <!-- ========================================
+         SIDEBAR
+    ======================================== -->
 
-        <div class="container">
+    <aside class="sidebar" id="sidebar">
 
-            <h1>Crux's Portfolio</h1>
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
 
-            <nav>
+        <nav class="sidebar-nav">
 
-                <a href="./index.html">
-                    Home
-                </a>
+            <a
+                href="#home"
+                class="sidebar-link active"
+                data-section="home"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
+            </a>
 
-                <a href="#about">
-                    About
-                </a>
+            <a
+                href="#about"
+                class="sidebar-link"
+                data-section="about"
+            >
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
+            </a>
 
-                <a
-                    href="./programs.html"
-                    id="programsLink"
-                    style="display: none;"
-                >
-                    Programs
-                </a>
+            <a
+                href="./programs.html"
+                id="programsLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">◇</span>
+                <span>Programs</span>
+            </a>
 
-                <a
-                    href="./private.html"
-                    id="privateLink"
-                    style="display: none;"
-                >
-                    Private
-                </a>
+            <a
+                href="./private.html"
+                id="privateLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">▣</span>
+                <span>Private</span>
+            </a>
 
-                <a
-                    href="./login.html"
-                    id="loginLink"
-                >
-                    Login
-                </a>
+        </nav>
 
-            </nav>
 
-            <div id="userStatus"></div>
+        <div class="sidebar-bottom">
+
+            <a
+                href="./settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
 
         </div>
 
-    </header>
+    </aside>
 
 
-    <main>
+    <!-- ========================================
+         MENU BUTTON
+    ======================================== -->
 
-        <section class="hero">
+    <button
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ======================================== -->
+
+    <main class="site-main">
+
+
+        <!-- ========================================
+             HOME
+        ======================================== -->
+
+        <section
+            class="hero"
+            id="home"
+        >
 
             <div class="container">
 
-                <h2>
-                    Welcome to my portfolio
-                </h2>
+                <div class="brand-title">
+                    CRUX
+                </div>
 
-                <p>
-                    This is my personal portfolio, projects, photography,
-                    and personal wiki.
+                <div class="hero-line"></div>
+
+                <p class="hero-label">
+                    PERSONAL PORTFOLIO
                 </p>
 
-                <button id="learnMoreButton">
-                    Explore
-                </button>
+                <h1>
+                    Welcome to my portfolio
+                </h1>
+
+                <p class="hero-description">
+                    A collection of my projects, programs,
+                    photography, and personal work.
+                </p>
+
+
+                <!--
+                    Login button only appears
+                    when the visitor is not logged in.
+                -->
+
+                <a
+                    href="./login.html"
+                    class="primary-button"
+                    id="loginButton"
+                >
+                    Login
+                </a>
 
             </div>
 
         </section>
 
 
-        <section class="about" id="about">
+        <!-- ========================================
+             ABOUT
+        ======================================== -->
+
+        <section
+            class="about section"
+            id="about"
+        >
 
             <div class="container">
+
+                <p class="section-label">
+                    ABOUT
+                </p>
 
                 <h2>
                     About Me
                 </h2>
 
-                <p>
-                    Welcome to my personal website. More information
-                    about me will be added here.
+                <p class="section-description">
+                    Welcome to my personal website.
+                    More information about me will be added here.
                 </p>
 
             </div>
 
         </section>
 
+
     </main>
-
-
-    <footer>
-
-        <div class="container">
-
-            <p>
-                © 2026 Crux's Portfolio
-            </p>
-
-        </div>
-
-    </footer>
 
 
     <script

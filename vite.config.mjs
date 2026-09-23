@@ -4,11 +4,17 @@ import { fileURLToPath } from "url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-export default defineConfig({
-    base: "/CruxPortfolio/",
+export default defineConfig(({ command }) => ({
+    /*
+        GitHub Pages needs /CruxPortfolio/
+        Local development needs /
+    */
+    base: command === "build"
+        ? "/CruxPortfolio/"
+        : "/",
 
     server: {
-        host: true
+        host: "0.0.0.0"
     },
 
     build: {
@@ -17,8 +23,9 @@ export default defineConfig({
                 index: resolve(__dirname, "html/index.html"),
                 login: resolve(__dirname, "html/login.html"),
                 private: resolve(__dirname, "html/private.html"),
-                programs: resolve(__dirname, "html/programs.html")
+                programs: resolve(__dirname, "html/programs.html"),
+                settings: resolve(__dirname, "html/settings.html")
             }
         }
     }
-});
+}));

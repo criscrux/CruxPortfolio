@@ -5,41 +5,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Private - Crux's Portfolio</title>
+    <title>Private | Crux's Portfolio</title>
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
 
-    <header class="site-header">
-        <div class="container">
+    <!-- ========================================
+         SIDEBAR
+    ======================================== -->
 
-            <h1>Private Area</h1>
+    <aside class="sidebar" id="sidebar">
 
-            <nav>
-                <a href="./index.html">Home</a>
-                <a href="#" id="logoutLink">Logout</a>
-            </nav>
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="./index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+            <a
+                href="./index.html#about"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
+            </a>
+
+            <a
+                href="./programs.html"
+                id="programsLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">◇</span>
+                <span>Programs</span>
+            </a>
+
+            <a
+                href="./private.html"
+                id="privateLink"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">▣</span>
+                <span>Private</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="./settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
 
         </div>
-    </header>
 
-    <main>
-        <section class="hero">
+    </aside>
+
+
+    <!-- ========================================
+         MENU BUTTON
+    ======================================== -->
+
+    <button
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ======================================== -->
+
+    <main class="site-main">
+
+        <section class="section">
+
             <div class="container">
 
-                <h2>Private Content</h2>
+                <div class="page-heading">
 
-                <p id="privateMessage">
-                    Checking access...
-                </p>
+                    <p class="section-label">
+                        PRIVATE
+                    </p>
+
+                    <h1>
+                        Private
+                    </h1>
+
+                    <p class="section-description">
+                        Private content and personal information.
+                    </p>
+
+                </div>
+
+
+                <!--
+                    Keep your existing private
+                    content below this point.
+                -->
+
+                <div id="privateContent">
+
+                </div>
 
             </div>
+
         </section>
+
     </main>
 
-    <script type="module" src="../js/private.js"></script>
+
+    <script
+        type="module"
+        src="../js/private.js"
+    ></script>
 
 </body>
 

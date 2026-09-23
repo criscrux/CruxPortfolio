@@ -1,65 +1,224 @@
 import { supabase } from "./supabase.js";
 
-const privateMessage = document.getElementById("privateMessage");
-const logoutLink = document.getElementById("logoutLink");
 
-const BASE_URL = import.meta.env.BASE_URL;
+const sidebar =
+    document.getElementById("sidebar");
+
+const mobileMenuButton =
+    document.getElementById("mobileMenuButton");
+
+const sidebarOverlay =
+    document.getElementById("sidebarOverlay");
+
+const programsLink =
+    document.getElementById("programsLink");
+
+const privateLink =
+    document.getElementById("privateLink");
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+function closeSidebar() {
+
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.classList.remove("show");
+    }
+
+    if (mobileMenuButton) {
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+}
+
+
+function toggleSidebar() {
+
+    if (!sidebar) {
+        return;
+    }
+
+    const isOpen =
+        sidebar.classList.toggle("open");
+
+
+    if (sidebarOverlay) {
+
+        sidebarOverlay.classList.toggle(
+            "show",
+            isOpen
+        );
+
+    }
+
+
+    if (mobileMenuButton) {
+
+        mobileMenuButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    }
+
+}
+
+
+if (mobileMenuButton) {
+
+    mobileMenuButton.addEventListener(
+        "click",
+        toggleSidebar
+    );
+
+}
+
+
+if (sidebarOverlay) {
+
+    sidebarOverlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+}
+
+
+document.querySelectorAll(
+    ".sidebar-link"
+).forEach(function (link) {
+
+    link.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+});
+
+
+/* ========================================
+   ROLE-BASED ACCESS
+======================================== */
 
 async function checkAccess() {
 
-    const { data: userData, error: userError } =
-        await supabase.auth.getUser();
+    const {
+        data: userData,
+        error: userError
+    } = await supabase.auth.getUser();
 
-    if (userError || !userData.user) {
-        window.location.href = BASE_URL + "login.html";
+
+    if (
+        userError ||
+        !userData.user
+    ) {
+
+        window.location.href =
+            "./login.html";
+
         return;
+
     }
 
-    const user = userData.user;
 
-    const { data: profile, error: profileError } =
-        await supabase
-            .from("profiles")
-            .select("username, role")
-            .eq("id", user.id)
-            .single();
+    const user =
+        userData.user;
 
-    if (profileError || !profile) {
-        privateMessage.textContent =
-            "Unable to verify your access.";
+
+    const {
+        data: profile,
+        error: profileError
+    } = await supabase
+        .from("profiles")
+        .select("username, role")
+        .eq("id", user.id)
+        .single();
+
+
+    if (
+        profileError ||
+        !profile
+    ) {
+
+        console.error(
+            "Profile error:",
+            profileError
+        );
+
+        window.location.href =
+            "./index.html";
+
         return;
+
     }
+
+
+    const role =
+        profile.role;
+
 
     const allowedRoles = [
         "partner",
         "admin"
     ];
 
-    if (!allowedRoles.includes(profile.role)) {
-        privateMessage.textContent =
-            "You do not have permission to view this page.";
+
+    if (
+        !allowedRoles.includes(role)
+    ) {
+
+        window.location.href =
+            "./index.html";
 
         return;
+
     }
 
-    privateMessage.textContent =
-        "Welcome, " +
-        profile.username +
-        ". You have access to the private area.";
+
+    /* --------------------------------
+       SIDEBAR ACCESS
+    -------------------------------- */
+
+    if (privateLink) {
+
+        privateLink.style.display =
+            "flex";
+
+    }
+
+
+    const programsRoles = [
+        "classmate",
+        "family",
+        "partner",
+        "admin"
+    ];
+
+
+    if (
+        programsLink &&
+        programsRoles.includes(role)
+    ) {
+
+        programsLink.style.display =
+            "flex";
+
+    }
+
 }
 
-if (logoutLink) {
 
-    logoutLink.addEventListener("click", async function (event) {
-
-        event.preventDefault();
-
-        await supabase.auth.signOut({
-            scope: "local"
-        });
-
-        window.location.href = BASE_URL + "login.html";
-    });
-}
+/* ========================================
+   START
+======================================== */
 
 checkAccess();

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | Crux's Portfolio</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="./index.html" class="sidebar-link">
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+            <a href="./index.html#about" class="sidebar-link">
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
+            </a>
+
+            <a
+                href="./programs.html"
+                id="programsLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">◇</span>
+                <span>Programs</span>
+            </a>
+
+            <a
+                href="./private.html"
+                id="privateLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">▣</span>
+                <span>Private</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="./settings.html"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <button
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <main class="site-main">
+
+        <section class="section settings-page">
+
+            <div class="container">
+
+                <div class="page-heading">
+
+                    <p class="section-label">
+                        SETTINGS
+                    </p>
+
+                    <h1>
+                        Profile
+                    </h1>
+
+                    <p class="section-description">
+                        View your account information and manage your session.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="profile-avatar" id="profileAvatar">
+                        ?
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <div class="profile-item">
+
+                            <span class="profile-label">
+                                Username
+                            </span>
+
+                            <span
+                                class="profile-value"
+                                id="profileUsername"
+                            >
+                                Loading...
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <span class="profile-label">
+                                Email
+                            </span>
+
+                            <span
+                                class="profile-value"
+                                id="profileEmail"
+                            >
+                                Loading...
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <span class="profile-label">
+                                Role
+                            </span>
+
+                            <span
+                                class="profile-value role-badge"
+                                id="profileRole"
+                            >
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-actions">
+
+                    <button
+                        type="button"
+                        class="danger-button"
+                        id="logoutButton"
+                    >
+                        Log out
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="../js/settings.js"
+    ></script>
+
+</body>
+
+</html>

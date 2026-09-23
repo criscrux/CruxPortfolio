@@ -1,120 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Programs - Crux Portfolio</title>
+    <title>Programs | Crux's Portfolio</title>
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
 
-<header class="site-header">
+    <!-- SIDEBAR -->
 
-    <div class="container">
+    <aside class="sidebar" id="sidebar">
 
-        <h1>Crux Portfolio</h1>
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
 
-        <nav>
-            <a href="./index.html">Home</a>
-            <a href="./programs.html">Programs</a>
-            <a href="./private.html"
-               id="privateLink"
-               style="display: none;">
-                Private
+        <nav class="sidebar-nav">
+
+            <a
+                href="./index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
             </a>
-            <a href="./login.html" id="loginLink">
-                Login
+
+            <a
+                href="./index.html#about"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
             </a>
+
+            <a
+                href="./programs.html"
+                id="programsLink"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">◇</span>
+                <span>Programs</span>
+            </a>
+
+            <a
+                href="./private.html"
+                id="privateLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+                <span class="sidebar-icon">▣</span>
+                <span>Private</span>
+            </a>
+
         </nav>
 
-    </div>
+        <div class="sidebar-bottom">
 
-</header>
+            <a
+                href="./settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
 
+        </div>
 
-<main>
-
-    <section class="programs-page">
-
-        <div class="container">
-
-            <h2>Programs</h2>
-
-            <p class="programs-intro">
-                A collection of programs and code projects.
-            </p>
+    </aside>
 
 
-            <!-- PROGRAM 1 -->
+    <!-- MENU BUTTON -->
 
-            <article class="program-card">
+    <button
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
 
-                <div class="program-header">
 
-                    <div>
-                        <h3>Java Quiz Program</h3>
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
 
-                        <span class="program-language">
-                            Java
-                        </span>
-                    </div>
 
-                    <button
-                        class="copy-button"
-                        data-copy-target="javaQuiz">
-                        Copy
-                    </button>
+    <!-- MAIN CONTENT -->
+
+    <main class="site-main">
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="page-heading">
+
+                    <p class="section-label">
+                        PROGRAMS
+                    </p>
+
+                    <h1>
+                        Programs
+                    </h1>
+
+                    <p class="section-description">
+                        A collection of my programming projects and sample code.
+                    </p>
 
                 </div>
 
 
-                <pre><code id="javaQuiz">import java.util.Scanner;
+                <!-- ========================================
+                     SAMPLE CODE 1
+                ======================================== -->
 
-public class Quiz1 {
+                <div class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <h2>
+                                Default Code in Java
+                            </h2>
+
+                            <p>
+                                Default Code
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>public class Default {
 
     public static void main(String[] args) {
-
-        Scanner input = new Scanner(System.in);
-
-        System.out.print("Enter your name: ");
-        String name = input.nextLine();
-
-        System.out.println("Hello, " + name + "!");
-
-        input.close();
+        System.out.print("Hello, World!");
     }
 }</code></pre>
 
-            </article>
+                </div>
 
 
-            <!-- ADD MORE PROGRAMS HERE -->
+                <!-- ========================================
+                     SAMPLE CODE 2
+                ======================================== -->
+
+                <div class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <h2>
+                                Midterm Quiz1
+                            </h2>
+
+                            <p>
+                                Midterm Quiz 1 - BSCpE
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>package com.crux.quiz1;
+
+import java.util.Scanner;
+
+public class MQuiz1 {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        double sum = 0;
+        double difference = 0;
+        double product = 1;
+        String sumExpression = "";
+        String diffExpression = "";
+        String proExpression = "";
+
+        System.out.print("Enter how many numbers you want to process: ");
+        int count = input.nextInt();
+
+        for (int i = 1; i &lt;= count; i++) {
+            System.out.print("Number: " + i + ": ");
+            double number = input.nextDouble();
+
+            sum = sum + number;
+            product = product * number;
+
+            if (i == 1) {
+                sumExpression = sumExpression + number;
+                diffExpression = diffExpression + number;
+                proExpression = proExpression + number;
+                difference = number;
+
+            } else if (number &lt; 0) {
+                sumExpression = sumExpression + " - " + -number;
+                diffExpression = diffExpression + " - " + "(" + number + ")";
+                proExpression = proExpression + " * " + "(" + number + ")";
+                difference = difference - number;
+
+            } else {
+                sumExpression = sumExpression + " + " + number;
+                diffExpression = diffExpression + " - " + number;
+                proExpression = proExpression + " * " + number;
+                difference = difference - number;
+            }
+
+            if (i == count) {
+                sumExpression = sumExpression + " = ";
+                diffExpression = diffExpression + " = ";
+                proExpression = proExpression + " = ";
+            }
+        }
+
+        System.out.println("The inputted numbers are: ");
+        System.out.println("Sum: " + sumExpression + sum);
+        System.out.println("Difference: " + diffExpression + difference);
+        System.out.println("Product: " + proExpression + product);
+    }
+}</code></pre>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <div class="container">
-
-        <p>
-            © 2026 Crux Portfolio
-        </p>
-
-    </div>
-
-</footer>
-
-
-<script type="module" src="../js/programs.js"></script>
+    <script
+        type="module"
+        src="../js/programs.js"
+    ></script>
 
 </body>
+
 </html>

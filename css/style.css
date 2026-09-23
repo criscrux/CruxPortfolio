@@ -1,335 +1,1043 @@
-/* =========================
+/* ========================================
+   ROOT
+======================================== */
+
+:root {
+    --bg: #080b12;
+    --bg-soft: #0d111a;
+    --panel: #111722;
+    --panel-hover: #171e2b;
+
+    --text: #f2f5f8;
+    --text-soft: #9da7b5;
+    --text-muted: #687384;
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    --accent: #ffffff;
+
+    --sidebar-width: 260px;
+
+    --transition: 0.35s ease;
+}
+
+
+/* ========================================
    RESET
-========================= */
+======================================== */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 
 html {
     scroll-behavior: smooth;
 }
 
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #222;
-    line-height: 1.6;
-    min-width: 320px;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.035),
+            transparent 35%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow-x: hidden;
 }
 
-/* =========================
-   GENERAL CONTAINER
-========================= */
 
-.container {
-    width: min(100% - 32px, 1200px);
-    margin: 0 auto;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.site-header {
-    background: #222;
-    color: white;
-    padding: 16px 0;
-}
-
-.site-header .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-}
-
-.site-header h1 {
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    white-space: nowrap;
-}
-
-.site-header nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
-.site-header nav a {
-    color: white;
+a {
+    color: inherit;
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 6px;
 }
 
-.site-header nav a:hover {
-    background: #444;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    padding: clamp(60px, 10vw, 120px) 0;
-    text-align: center;
-}
-
-.hero h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    margin-bottom: 16px;
-}
-
-.hero p {
-    max-width: 700px;
-    margin: 0 auto 24px;
-    font-size: clamp(1rem, 2vw, 1.2rem);
-}
-
-/* =========================
-   BUTTONS
-========================= */
 
 button {
     font: inherit;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: var(--sidebar-width);
+    height: 100vh;
+
+    padding: 32px 20px;
+
+    background: rgba(13, 17, 26, 0.98);
+
+    border-right: 1px solid var(--border);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+
+    /*
+        Hidden by default.
+        It starts completely outside
+        the left side of the screen.
+    */
+    transform: translateX(-100%);
+
+    /*
+        This creates the slide animation.
+    */
+    transition:
+        transform 0.35s ease;
+
+    box-shadow:
+        20px 0 50px rgba(0, 0, 0, 0.25);
+}
+
+
+/*
+    When JavaScript adds .open,
+    the sidebar slides into view.
+*/
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+
+/* ========================================
+   SIDEBAR BRAND
+======================================== */
+
+.sidebar-brand {
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        12px
+        14px
+        32px
+        14px;
+}
+
+
+.sidebar-brand span {
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* ========================================
+   SIDEBAR NAV
+======================================== */
+
+.sidebar-nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.sidebar-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.sidebar-link:hover {
+    background: var(--panel-hover);
+
+    color: var(--text);
+
+    transform: translateX(3px);
+}
+
+
+.sidebar-link.active {
+    background: var(--panel);
+
+    color: var(--text);
+
+    box-shadow:
+        inset 3px 0 0 var(--accent);
+}
+
+
+.sidebar-icon {
+    width: 22px;
+
+    display: flex;
+
+    justify-content: center;
+
+    font-size: 18px;
+
+    flex-shrink: 0;
+}
+
+
+/* ========================================
+   MENU BUTTON
+======================================== */
+
+.mobile-menu-button {
+    position: fixed;
+
+    top: 20px;
+    left: 20px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: rgba(13, 17, 26, 0.9);
+
+    color: var(--text);
+
     cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    min-height: 44px;
+
+    z-index: 1100;
+
+    font-size: 22px;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
-#learnMoreButton,
-#googleLogin {
-    background: #222;
-    color: white;
+
+.mobile-menu-button:hover {
+    background: var(--panel-hover);
+
+    transform: scale(1.05);
 }
 
-#learnMoreButton:hover,
-#googleLogin:hover {
-    background: #444;
+
+.mobile-menu-button:active {
+    transform: scale(0.95);
 }
 
-/* =========================
-   ABOUT
-========================= */
 
-.about {
-    padding: clamp(50px, 8vw, 100px) 0;
-    background: white;
+/* ========================================
+   SIDEBAR OVERLAY
+======================================== */
+
+.sidebar-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    z-index: 900;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
 }
 
-.about h2 {
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    margin-bottom: 16px;
+
+.sidebar-overlay.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
 }
 
-.about p {
-    max-width: 800px;
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.site-main {
+    min-height: 100vh;
+
+    margin-left: 0;
 }
 
-/* =========================
-   FOOTER
-========================= */
 
-footer {
-    background: #222;
-    color: white;
-    padding: 24px 0;
+/* ========================================
+   CONTAINER
+======================================== */
+
+.container {
+    width: min(
+        1100px,
+        calc(100% - 48px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* ========================================
+   HERO / HOME
+======================================== */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     text-align: center;
+
+    padding:
+        80px
+        24px;
 }
 
-/* =========================
+
+.brand-title {
+    font-size:
+        clamp(
+            72px,
+            16vw,
+            190px
+        );
+
+    line-height: 0.9;
+
+    font-weight: 900;
+
+    letter-spacing: -0.06em;
+
+    color: var(--text);
+
+    user-select: none;
+}
+
+
+.hero-line {
+    width: 80px;
+
+    height: 1px;
+
+    margin:
+        34px
+        auto
+        20px;
+
+    background: var(--text-muted);
+}
+
+
+.hero-label,
+.section-label {
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+}
+
+
+.hero h1 {
+    margin-top: 18px;
+
+    font-size:
+        clamp(
+            30px,
+            5vw,
+            52px
+        );
+
+    line-height: 1.1;
+}
+
+
+.hero-description {
+    max-width: 600px;
+
+    margin:
+        20px
+        auto
+        32px;
+
+    color: var(--text-soft);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.primary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 120px;
+
+    padding: 13px 24px;
+
+    border-radius: 10px;
+
+    background: var(--text);
+
+    color: var(--bg);
+
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.primary-button:hover {
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+.section {
+    min-height: 80vh;
+
+    padding:
+        120px
+        24px;
+}
+
+
+.section h2 {
+    margin-top: 12px;
+
+    font-size:
+        clamp(
+            36px,
+            6vw,
+            64px
+        );
+}
+
+
+.section-description {
+    max-width: 650px;
+
+    margin-top: 20px;
+
+    color: var(--text-soft);
+
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   PAGE HEADING
+======================================== */
+
+.page-heading {
+    padding-top: 110px;
+
+    margin-bottom: 45px;
+}
+
+
+.page-heading h1 {
+    margin-top: 12px;
+
+    font-size:
+        clamp(
+            40px,
+            7vw,
+            70px
+        );
+}
+
+
+/* ========================================
+   SETTINGS
+======================================== */
+
+.settings-page {
+    min-height: 100vh;
+}
+
+
+.settings-card {
+    width: 100%;
+
+    max-width: 700px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+    padding: 28px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+}
+
+
+.profile-avatar {
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #1b2330;
+
+    color: var(--text);
+
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+
+.profile-info {
+    flex: 1;
+}
+
+
+.profile-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding:
+        14px
+        0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.profile-item:last-child {
+    border-bottom: none;
+}
+
+
+.profile-label {
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+}
+
+
+.profile-value {
+    color: var(--text);
+
+    word-break: break-word;
+}
+
+
+.role-badge {
+    text-transform: capitalize;
+}
+
+
+.settings-actions {
+    margin-top: 24px;
+}
+
+
+.danger-button {
+    padding:
+        12px
+        22px;
+
+    border: 1px solid rgba(
+        255,
+        100,
+        100,
+        0.25
+    );
+
+    border-radius: 10px;
+
+    background:
+        rgba(
+            255,
+            70,
+            70,
+            0.08
+        );
+
+    color: #ff9b9b;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.danger-button:hover {
+    background:
+        rgba(
+            255,
+            70,
+            70,
+            0.15
+        );
+
+    transform: translateY(-2px);
+}
+
+
+.danger-button:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+
+    :root {
+        --sidebar-width: 235px;
+    }
+
+
+    .container {
+        width:
+            calc(100% - 32px);
+    }
+
+
+    .mobile-menu-button {
+        top: 14px;
+
+        left: 14px;
+
+        width: 44px;
+
+        height: 44px;
+    }
+
+
+    .hero {
+        padding:
+            70px
+            16px;
+    }
+
+
+    .brand-title {
+        font-size:
+            clamp(
+                64px,
+                24vw,
+                120px
+            );
+    }
+
+
+    .section {
+        padding:
+            100px
+            16px;
+    }
+
+
+    .page-heading {
+        padding-top: 90px;
+    }
+
+
+    .settings-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 22px;
+    }
+
+
+    .profile-info {
+        width: 100%;
+    }
+
+}
+
+/* ========================================
+   PROGRAM CODE CARDS
+======================================== */
+
+.code-card {
+    width: 100%;
+
+    margin-top: 28px;
+
+    overflow: hidden;
+
+    background: #0d111a;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+}
+
+
+.code-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.code-card-header h2 {
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+
+.code-card-header p {
+    color: var(--text-soft);
+
+    font-size: 14px;
+}
+
+
+.code-card pre {
+    margin: 0;
+
+    padding: 22px;
+
+    overflow-x: auto;
+
+    background: #080b12;
+}
+
+
+.code-card code {
+    color: #dce3ec;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    white-space: pre;
+}
+
+
+.copy-button {
+    flex-shrink: 0;
+
+    padding:
+        8px
+        14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: var(--panel);
+
+    color: var(--text-soft);
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.copy-button:hover {
+    background: var(--panel-hover);
+
+    color: var(--text);
+}
+
+
+.copy-button.copied {
+    color: var(--text);
+
+    background: var(--panel-hover);
+}
+
+
+@media (max-width: 600px) {
+
+    .code-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .copy-button {
+        width: 100%;
+    }
+
+}
+
+/* ========================================
    LOGIN PAGE
-========================= */
+======================================== */
 
 .login-page {
-    min-height: 100svh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding:
-        max(24px, env(safe-area-inset-top))
-        max(16px, env(safe-area-inset-right))
-        max(24px, env(safe-area-inset-bottom))
-        max(16px, env(safe-area-inset-left));
+    padding: 30px 20px;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 255, 255, 0.05),
+            transparent 35%
+        ),
+        var(--background);
 }
 
 .login-box {
-    width: min(100%, 420px);
-    background: white;
-    padding: clamp(24px, 6vw, 40px);
-    border-radius: 12px;
+    width: 100%;
+    max-width: 430px;
+    padding: 48px 42px;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+.login-brand {
+    margin-bottom: 28px;
+    color: var(--text);
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 8px;
+}
+
+.login-box .section-label {
+    margin-bottom: 10px;
 }
 
 .login-box h1 {
-    font-size: clamp(1.5rem, 6vw, 2.2rem);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    color: var(--text);
+    font-size: 32px;
+    font-weight: 700;
 }
 
-.login-box p {
-    margin-bottom: 20px;
-}
-
-#googleLogin {
-    width: 100%;
-}
-
-/* =========================
-   TABLETS
-========================= */
-
-@media (max-width: 900px) {
-
-    .site-header .container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .site-header h1 {
-        text-align: center;
-    }
-
-    .site-header nav {
-        justify-content: center;
-    }
-
-}
-
-/* =========================
-   PHONES
-========================= */
-
-@media (max-width: 600px) {
-
-    .container {
-        width: min(100% - 24px, 1200px);
-    }
-
-    .site-header {
-        padding: 12px 0;
-    }
-
-    .site-header nav {
-        gap: 4px;
-    }
-
-    .site-header nav a {
-        padding: 8px 9px;
-        font-size: 0.9rem;
-    }
-
-    .hero {
-        padding: 64px 0;
-    }
-
-    .hero h2 {
-        line-height: 1.15;
-    }
-
-}
-
-/* =========================
-   VERY SMALL PHONES
-========================= */
-
-@media (max-width: 380px) {
-
-    .container {
-        width: calc(100% - 20px);
-    }
-
-    .site-header nav a {
-        font-size: 0.82rem;
-        padding: 7px 8px;
-    }
-
-    .login-box {
-        padding: 24px 18px;
-    }
-
-}
-.programs-page {
-    padding: clamp(50px, 8vw, 100px) 0;
-}
-
-.programs-page h2 {
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    margin-bottom: 8px;
-}
-
-.programs-intro {
-    margin-bottom: 32px;
-}
-
-.program-card {
-    background: white;
-    border-radius: 12px;
-    margin-bottom: 32px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.program-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 16px 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-.program-header h3 {
-    margin-bottom: 4px;
-}
-
-.program-language {
-    font-size: 0.85rem;
-    color: #666;
-}
-
-.copy-button {
-    background: #222;
-    color: white;
-    padding: 8px 14px;
-    min-height: 40px;
-    border-radius: 6px;
-    white-space: nowrap;
-}
-
-.copy-button:hover {
-    background: #444;
-}
-
-.program-card pre {
-    margin: 0;
-    padding: 20px;
-    overflow-x: auto;
-    background: #f7f7f7;
-}
-
-.program-card code {
-    font-family: Consolas, Monaco, monospace;
-    font-size: 0.9rem;
+.login-description {
+    margin-bottom: 30px;
+    color: var(--text-soft);
+    font-size: 15px;
     line-height: 1.6;
 }
 
+.google-login-button {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 13px 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: #202124;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.google-login-button:hover {
+    background: #f5f5f5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.google-login-button:active {
+    transform: translateY(0);
+}
+
+.google-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4285f4;
+}
+
+.login-message {
+    min-height: 20px;
+    margin-top: 18px;
+    color: var(--text-soft);
+    font-size: 13px;
+}
+
+.login-back {
+    display: inline-block;
+    margin-top: 26px;
+    color: var(--text-soft);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.login-back:hover {
+    color: var(--text);
+}
+
+
+/* MOBILE */
+
 @media (max-width: 600px) {
 
-    .program-header {
-        align-items: flex-start;
+    .login-page {
+        padding: 20px;
     }
 
-    .program-card pre {
-        padding: 16px;
+    .login-box {
+        padding: 38px 24px;
+        border-radius: 16px;
     }
 
-    .program-card code {
-        font-size: 0.8rem;
+    .login-brand {
+        font-size: 28px;
+        letter-spacing: 6px;
     }
+
+    .login-box h1 {
+        font-size: 27px;
+    }
+
 }
