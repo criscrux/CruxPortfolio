@@ -22,6 +22,7 @@
             <span>CRUX</span>
         </div>
 
+
         <nav class="sidebar-nav">
 
             <a
@@ -33,6 +34,7 @@
                 <span>Home</span>
             </a>
 
+
             <a
                 href="#about"
                 class="sidebar-link"
@@ -42,15 +44,89 @@
                 <span>About</span>
             </a>
 
+
             <a
-                href="./programs.html"
-                id="programsLink"
+                href="#socials"
                 class="sidebar-link"
-                style="display: none;"
+                data-section="socials"
             >
-                <span class="sidebar-icon">◇</span>
-                <span>Programs</span>
+                <span class="sidebar-icon">@</span>
+                <span>Socials</span>
             </a>
+
+
+            <!-- ========================================
+                 PROGRAMS DROPDOWN
+            ======================================== -->
+
+            <div class="sidebar-dropdown">
+
+                <button
+                    type="button"
+                    class="sidebar-link sidebar-dropdown-button"
+                    id="programsButton"
+                    aria-expanded="false"
+                >
+
+                    <span class="sidebar-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        Programs
+                    </span>
+
+                    <span
+                        class="sidebar-dropdown-arrow"
+                        id="programsArrow"
+                    >
+                        ›
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="sidebar-dropdown-menu"
+                    id="programsMenu"
+                >
+
+                    <a
+                        href="./programs/1st-year/"
+                        class="sidebar-sublink"
+                    >
+                        1st Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/2nd-year/"
+                        class="sidebar-sublink"
+                    >
+                        2nd Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/3rd-year/"
+                        class="sidebar-sublink"
+                    >
+                        3rd Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/4th-year/"
+                        class="sidebar-sublink"
+                    >
+                        4th Year BSCpE
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 PRIVATE
+            ======================================== -->
 
             <a
                 href="./private.html"
@@ -58,12 +134,23 @@
                 class="sidebar-link"
                 style="display: none;"
             >
-                <span class="sidebar-icon">▣</span>
-                <span>Private</span>
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Private
+                </span>
+
             </a>
 
         </nav>
 
+
+        <!-- ========================================
+             SETTINGS
+        ======================================== -->
 
         <div class="sidebar-bottom">
 
@@ -71,8 +158,15 @@
                 href="./settings.html"
                 class="sidebar-link"
             >
-                <span class="sidebar-icon">⚙</span>
-                <span>Settings</span>
+
+                <span class="sidebar-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
             </a>
 
         </div>
@@ -85,6 +179,7 @@
     ======================================== -->
 
     <button
+        type="button"
         class="mobile-menu-button"
         id="mobileMenuButton"
         aria-label="Open navigation"
@@ -93,6 +188,10 @@
         ☰
     </button>
 
+
+    <!-- ========================================
+         OVERLAY
+    ======================================== -->
 
     <div
         class="sidebar-overlay"
@@ -122,26 +221,24 @@
                     CRUX
                 </div>
 
+
                 <div class="hero-line"></div>
+
 
                 <p class="hero-label">
                     PERSONAL PORTFOLIO
                 </p>
 
+
                 <h1>
-                    Welcome to my portfolio
+                    Welcome to my website
                 </h1>
 
+
                 <p class="hero-description">
-                    A collection of my projects, programs,
-                    photography, and personal work.
+                    A collection of my projects, programs, and personal work.
                 </p>
 
-
-                <!--
-                    Login button only appears
-                    when the visitor is not logged in.
-                -->
 
                 <a
                     href="./login.html"
@@ -161,7 +258,7 @@
         ======================================== -->
 
         <section
-            class="about section"
+            class="section about"
             id="about"
         >
 
@@ -171,14 +268,231 @@
                     ABOUT
                 </p>
 
+
                 <h2>
                     About Me
                 </h2>
+
 
                 <p class="section-description">
                     Welcome to my personal website.
                     More information about me will be added here.
                 </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================================
+             SOCIALS
+        ======================================== -->
+
+        <section
+            class="section socials"
+            id="socials"
+        >
+
+            <div class="container">
+
+                <p class="section-label">
+                    SOCIALS
+                </p>
+
+
+                <h2>
+                    My Socials
+                </h2>
+
+
+                <p class="section-description">
+                    You can find me on these platforms.
+                </p>
+
+
+                <div class="socials-grid">
+
+
+                    <a
+                        href="https://www.facebook.com/share/1BDc4t86wQ/?mibextid=wwXIfr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            FB
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                Facebook
+                            </h3>
+
+                            <p>
+                                CrisCrux
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.instagram.com/criscrux9521/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            IG
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                Instagram
+                            </h3>
+
+                            <p>
+                                @criscrux9521
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.tiktok.com/@criscruxgg?_r=1&_t=ZS-9ALrCSFmp3H"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            TT
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                TikTok
+                            </h3>
+
+                            <p>
+                                @criscruxgg
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="https://discord.com/users/945910967764676618"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            DC
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                Discord
+                            </h3>
+
+                            <p>
+                                @cruxfam
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="https://t.me/DnCrux"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            TG
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                Telegram
+                            </h3>
+
+                            <p>
+                                @DnCrux
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="https://github.com/criscrux"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-card"
+                    >
+
+                        <div class="social-card-icon">
+                            GH
+                        </div>
+
+                        <div class="social-card-content">
+
+                            <h3>
+                                GitHub
+                            </h3>
+
+                            <p>
+                                @criscrux
+                            </p>
+
+                        </div>
+
+                        <span class="social-card-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
 
             </div>
 

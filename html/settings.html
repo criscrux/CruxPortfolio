@@ -2,12 +2,21 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Settings | Crux's Portfolio</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
 </head>
 
 <body>
@@ -18,27 +27,111 @@
             <span>CRUX</span>
         </div>
 
+
         <nav class="sidebar-nav">
 
-            <a href="./index.html" class="sidebar-link">
+            <a
+                href="./index.html#home"
+                class="sidebar-link"
+                data-section="home"
+            >
                 <span class="sidebar-icon">⌂</span>
                 <span>Home</span>
             </a>
 
-            <a href="./index.html#about" class="sidebar-link">
+
+            <a
+                href="./index.html#about"
+                class="sidebar-link"
+                data-section="about"
+            >
                 <span class="sidebar-icon">◎</span>
                 <span>About</span>
             </a>
 
+
             <a
-                href="./programs.html"
-                id="programsLink"
+                href="./index.html#socials"
                 class="sidebar-link"
-                style="display: none;"
+                data-section="socials"
             >
-                <span class="sidebar-icon">◇</span>
-                <span>Programs</span>
+                <span class="sidebar-icon">@</span>
+                <span>Socials</span>
             </a>
+
+
+            <!-- ========================================
+                 PROGRAMS DROPDOWN
+            ======================================== -->
+
+            <div class="sidebar-dropdown">
+
+                <button
+                    type="button"
+                    class="sidebar-link sidebar-dropdown-button"
+                    id="programsButton"
+                    aria-expanded="false"
+                >
+
+                    <span class="sidebar-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        Programs
+                    </span>
+
+                    <span
+                        class="sidebar-dropdown-arrow"
+                        id="programsArrow"
+                    >
+                        ›
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="sidebar-dropdown-menu"
+                    id="programsMenu"
+                >
+
+                    <a
+                        href="./programs/1st-year/"
+                        class="sidebar-sublink"
+                    >
+                        1st Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/2nd-year/"
+                        class="sidebar-sublink"
+                    >
+                        2nd Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/3rd-year/"
+                        class="sidebar-sublink"
+                    >
+                        3rd Year BSCpE
+                    </a>
+
+                    <a
+                        href="./programs/4th-year/"
+                        class="sidebar-sublink"
+                    >
+                        4th Year BSCpE
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 PRIVATE
+            ======================================== -->
 
             <a
                 href="./private.html"
@@ -46,11 +139,23 @@
                 class="sidebar-link"
                 style="display: none;"
             >
-                <span class="sidebar-icon">▣</span>
-                <span>Private</span>
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Private
+                </span>
+
             </a>
 
         </nav>
+
+
+        <!-- ========================================
+             SETTINGS
+        ======================================== -->
 
         <div class="sidebar-bottom">
 
@@ -58,8 +163,15 @@
                 href="./settings.html"
                 class="sidebar-link active"
             >
-                <span class="sidebar-icon">⚙</span>
-                <span>Settings</span>
+
+                <span class="sidebar-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
             </a>
 
         </div>
@@ -68,6 +180,7 @@
 
 
     <button
+        type="button"
         class="mobile-menu-button"
         id="mobileMenuButton"
         aria-label="Open navigation"
@@ -100,7 +213,7 @@
                     </h1>
 
                     <p class="section-description">
-                        View your account information and manage your session.
+                        Your account information.
                     </p>
 
                 </div>
@@ -108,8 +221,23 @@
 
                 <div class="settings-card">
 
-                    <div class="profile-avatar" id="profileAvatar">
-                        ?
+                    <div class="profile-avatar-container">
+
+                        <img
+                            id="profileAvatarImage"
+                            class="profile-avatar-image"
+                            src=""
+                            alt="Profile picture"
+                        >
+
+
+                        <div
+                            class="profile-avatar"
+                            id="profileAvatar"
+                        >
+                            ?
+                        </div>
+
                     </div>
 
 
@@ -118,7 +246,7 @@
                         <div class="profile-item">
 
                             <span class="profile-label">
-                                Username
+                                Name
                             </span>
 
                             <span

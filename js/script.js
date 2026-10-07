@@ -1,14 +1,9 @@
 import { supabase } from "./supabase.js";
 
 
-const programsLink =
-    document.getElementById("programsLink");
-
-const privateLink =
-    document.getElementById("privateLink");
-
-const loginButton =
-    document.getElementById("loginButton");
+/* ========================================
+   ELEMENTS
+======================================== */
 
 const sidebar =
     document.getElementById("sidebar");
@@ -18,6 +13,24 @@ const mobileMenuButton =
 
 const sidebarOverlay =
     document.getElementById("sidebarOverlay");
+
+const programsButton =
+    document.getElementById("programsButton") ||
+    document.getElementById("programsToggle");
+
+const programsMenu =
+    document.getElementById("programsMenu") ||
+    document.getElementById("programsSubmenu");
+
+const programsArrow =
+    document.getElementById("programsArrow") ||
+    document.querySelector(".program-arrow");
+
+const privateLink =
+    document.getElementById("privateLink");
+
+const loginButton =
+    document.getElementById("loginButton");
 
 const sidebarLinks =
     document.querySelectorAll(
@@ -31,20 +44,14 @@ const sidebarLinks =
 
 function closeSidebar() {
 
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
+    sidebar?.classList.remove("open");
 
-    if (sidebarOverlay) {
-        sidebarOverlay.classList.remove("show");
-    }
+    sidebarOverlay?.classList.remove("show");
 
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
 }
 
@@ -58,57 +65,86 @@ function toggleSidebar() {
     const isOpen =
         sidebar.classList.toggle("open");
 
+    sidebarOverlay?.classList.toggle(
+        "show",
+        isOpen
+    );
 
-    if (sidebarOverlay) {
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
 
-        sidebarOverlay.classList.toggle(
-            "show",
+}
+
+
+mobileMenuButton?.addEventListener(
+    "click",
+    toggleSidebar
+);
+
+
+sidebarOverlay?.addEventListener(
+    "click",
+    closeSidebar
+);
+
+
+/* ========================================
+   PROGRAMS DROPDOWN
+======================================== */
+
+programsButton?.addEventListener(
+    "click",
+    function () {
+
+        if (!programsMenu) {
+            return;
+        }
+
+        const isOpen =
+            programsMenu.classList.toggle("show");
+
+        programsMenu.classList.toggle(
+            "open",
             isOpen
         );
 
-    }
+        programsArrow?.classList.toggle(
+            "open",
+            isOpen
+        );
 
-
-    if (mobileMenuButton) {
-
-        mobileMenuButton.setAttribute(
+        programsButton.setAttribute(
             "aria-expanded",
             String(isOpen)
         );
 
     }
-
-}
-
-
-if (mobileMenuButton) {
-
-    mobileMenuButton.addEventListener(
-        "click",
-        toggleSidebar
-    );
-
-}
+);
 
 
-if (sidebarOverlay) {
+/* ========================================
+   PROGRAM LINKS
+======================================== */
 
-    sidebarOverlay.addEventListener(
-        "click",
-        closeSidebar
-    );
+document
+    .querySelectorAll(".sidebar-sublink")
+    .forEach(function (link) {
 
-}
+        link.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    });
 
 
-/*
-    Close the sidebar after
-    selecting any sidebar link.
-*/
+/* ========================================
+   NORMAL SIDEBAR LINKS
+======================================== */
 
-document.querySelectorAll(
-    ".sidebar-link"
-).forEach(function (link) {
+sidebarLinks.forEach(function (link) {
 
     link.addEventListener(
         "click",
@@ -124,25 +160,19 @@ document.querySelectorAll(
 
 function setActiveSection(sectionId) {
 
-    sidebarLinks.forEach(function (link) {
+    sidebarLinks.forEach(
+        function (link) {
 
-        const linkSection =
-            link.dataset.section;
+            link.classList.toggle(
+                "active",
+                link.dataset.section === sectionId
+            );
 
-        link.classList.toggle(
-            "active",
-            linkSection === sectionId
-        );
-
-    });
+        }
+    );
 
 }
 
-
-/*
-    Determine the active section
-    based on the user's scroll position.
-*/
 
 function updateActiveSection() {
 
@@ -152,19 +182,18 @@ function updateActiveSection() {
     const about =
         document.getElementById("about");
 
+    const socials =
+        document.getElementById("socials");
 
-    if (!home || !about) {
+
+    if (
+        !home ||
+        !about ||
+        !socials
+    ) {
         return;
     }
 
-
-    /*
-        The point used to determine
-        which section is active.
-
-        This is slightly below the
-        top of the screen.
-    */
 
     const scrollPoint =
         window.scrollY +
@@ -172,6 +201,12 @@ function updateActiveSection() {
 
 
     if (
+        scrollPoint >= socials.offsetTop
+    ) {
+
+        setActiveSection("socials");
+
+    } else if (
         scrollPoint >= about.offsetTop
     ) {
 
@@ -186,12 +221,6 @@ function updateActiveSection() {
 }
 
 
-/*
-    Update immediately when the
-    page loads and whenever the
-    user scrolls.
-*/
-
 updateActiveSection();
 
 
@@ -205,162 +234,137 @@ window.addEventListener(
 
 
 /* ========================================
-   ROLE-BASED ACCESS
+   AUTHENTICATION
 ======================================== */
 
-async function checkLogin() {
+async function loadSession() {
 
-    const {
-        data: userData,
-        error: userError
-    } = await supabase.auth.getUser();
+    try {
+
+        const {
+            data,
+            error
+        } = await supabase.auth.getSession();
 
 
-    /* --------------------------------
-       ERROR
-    -------------------------------- */
+        if (error) {
 
-    if (userError) {
+            console.error(
+                "Session error:",
+                error
+            );
 
-        console.error(
-            "User error:",
-            userError
+            return;
+
+        }
+
+
+        const session =
+            data.session;
+
+
+        if (!session) {
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in:",
+            session.user
         );
 
-        return;
 
-    }
-
-
-    /* --------------------------------
-       NOT LOGGED IN
-    -------------------------------- */
-
-    if (!userData.user) {
+        /* --------------------------------
+           HIDE LOGIN
+        -------------------------------- */
 
         if (loginButton) {
 
             loginButton.style.display =
-                "inline-flex";
-
-        }
-
-
-        if (programsLink) {
-
-            programsLink.style.display =
                 "none";
 
         }
+
+
+        /* --------------------------------
+           LOAD ROLE
+        -------------------------------- */
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabase
+            .from("profiles")
+            .select("username, role")
+            .eq("id", session.user.id)
+            .single();
+
+
+        if (profileError) {
+
+            console.error(
+                "Profile error:",
+                profileError
+            );
+
+            return;
+
+        }
+
+
+        const role =
+            profile?.role || "viewer";
+
+
+        /* --------------------------------
+           PROGRAMS ACCESS
+        -------------------------------- */
+
+        const programsRoles = [
+            "classmate",
+            "family",
+            "partner",
+            "admin"
+        ];
+
+
+        if (programsButton) {
+
+            programsButton.style.display =
+                programsRoles.includes(role)
+                    ? "flex"
+                    : "none";
+
+        }
+
+
+        /* --------------------------------
+           PRIVATE ACCESS
+        -------------------------------- */
+
+        const privateRoles = [
+            "partner",
+            "admin"
+        ];
 
 
         if (privateLink) {
 
             privateLink.style.display =
-                "none";
+                privateRoles.includes(role)
+                    ? "flex"
+                    : "none";
 
         }
 
-
-        return;
-
-    }
-
-
-    /* --------------------------------
-       LOGGED IN
-    -------------------------------- */
-
-    const user =
-        userData.user;
-
-
-    /*
-        Hide Login after
-        authentication.
-    */
-
-    if (loginButton) {
-
-        loginButton.style.display =
-            "none";
-
-    }
-
-
-    /* --------------------------------
-       LOAD PROFILE
-    -------------------------------- */
-
-    const {
-        data: profile,
-        error: profileError
-    } = await supabase
-        .from("profiles")
-        .select("username, role")
-        .eq("id", user.id)
-        .single();
-
-
-    if (
-        profileError ||
-        !profile
-    ) {
+    } catch (error) {
 
         console.error(
-            "Profile error:",
-            profileError
+            "Authentication error:",
+            error
         );
-
-        return;
-
-    }
-
-
-    const role =
-        profile.role;
-
-
-    /* --------------------------------
-       PROGRAMS ACCESS
-    -------------------------------- */
-
-    const programsRoles = [
-        "classmate",
-        "family",
-        "partner",
-        "admin"
-    ];
-
-
-    if (
-        programsLink &&
-        programsRoles.includes(role)
-    ) {
-
-        programsLink.style.display =
-            "flex";
-
-    }
-
-
-    /* --------------------------------
-       PRIVATE ACCESS
-    -------------------------------- */
-
-    const privateRoles = [
-        "partner",
-        "admin"
-    ];
-
-
-    if (
-        privateLink &&
-        privateRoles.includes(role)
-    ) {
-
-        privateLink.style.display =
-            "flex";
 
     }
 
@@ -371,4 +375,4 @@ async function checkLogin() {
    START
 ======================================== */
 
-checkLogin();
+loadSession();

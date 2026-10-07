@@ -1,6 +1,10 @@
 import { supabase } from "./supabase.js";
 
 
+/* ========================================
+   ELEMENTS
+======================================== */
+
 const sidebar =
     document.getElementById("sidebar");
 
@@ -10,11 +14,33 @@ const mobileMenuButton =
 const sidebarOverlay =
     document.getElementById("sidebarOverlay");
 
-const programsLink =
-    document.getElementById("programsLink");
+const programsButton =
+    document.getElementById("programsButton");
+
+const programsMenu =
+    document.getElementById("programsMenu");
+
+const programsArrow =
+    document.getElementById("programsArrow");
 
 const privateLink =
     document.getElementById("privateLink");
+
+
+/* ========================================
+   ACTIVE SIDEBAR ITEM
+======================================== */
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(function (link) {
+
+        link.classList.remove("active");
+
+    });
+
+
+privateLink?.classList.add("active");
 
 
 /* ========================================
@@ -23,20 +49,14 @@ const privateLink =
 
 function closeSidebar() {
 
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
+    sidebar?.classList.remove("open");
 
-    if (sidebarOverlay) {
-        sidebarOverlay.classList.remove("show");
-    }
+    sidebarOverlay?.classList.remove("show");
 
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
 }
 
@@ -50,63 +70,100 @@ function toggleSidebar() {
     const isOpen =
         sidebar.classList.toggle("open");
 
+    sidebarOverlay?.classList.toggle(
+        "show",
+        isOpen
+    );
 
-    if (sidebarOverlay) {
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
 
-        sidebarOverlay.classList.toggle(
-            "show",
+}
+
+
+mobileMenuButton?.addEventListener(
+    "click",
+    toggleSidebar
+);
+
+
+sidebarOverlay?.addEventListener(
+    "click",
+    closeSidebar
+);
+
+
+/* ========================================
+   PROGRAMS DROPDOWN
+======================================== */
+
+programsButton?.addEventListener(
+    "click",
+    function () {
+
+        if (!programsMenu) {
+            return;
+        }
+
+        const isOpen =
+            programsMenu.classList.toggle("show");
+
+        programsArrow?.classList.toggle(
+            "open",
             isOpen
         );
 
-    }
-
-
-    if (mobileMenuButton) {
-
-        mobileMenuButton.setAttribute(
+        programsButton.setAttribute(
             "aria-expanded",
             String(isOpen)
         );
 
     }
-
-}
-
-
-if (mobileMenuButton) {
-
-    mobileMenuButton.addEventListener(
-        "click",
-        toggleSidebar
-    );
-
-}
-
-
-if (sidebarOverlay) {
-
-    sidebarOverlay.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-}
-
-
-document.querySelectorAll(
-    ".sidebar-link"
-).forEach(function (link) {
-
-    link.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-});
+);
 
 
 /* ========================================
-   ROLE-BASED ACCESS
+   SIDEBAR LINKS
+======================================== */
+
+document
+    .querySelectorAll(".sidebar-sublink")
+    .forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    });
+
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    link === programsButton
+                ) {
+                    return;
+                }
+
+                closeSidebar();
+
+            }
+        );
+
+    });
+
+
+/* ========================================
+   CHECK ACCESS
 ======================================== */
 
 async function checkAccess() {
@@ -133,6 +190,10 @@ async function checkAccess() {
     const user =
         userData.user;
 
+
+    /* --------------------------------
+       LOAD PROFILE
+    -------------------------------- */
 
     const {
         data: profile,
@@ -163,17 +224,21 @@ async function checkAccess() {
 
 
     const role =
-        profile.role;
+        profile.role || "viewer";
 
 
-    const allowedRoles = [
+    /* --------------------------------
+       PRIVATE ACCESS
+    -------------------------------- */
+
+    const privateRoles = [
         "partner",
         "admin"
     ];
 
 
     if (
-        !allowedRoles.includes(role)
+        !privateRoles.includes(role)
     ) {
 
         window.location.href =
@@ -185,7 +250,7 @@ async function checkAccess() {
 
 
     /* --------------------------------
-       SIDEBAR ACCESS
+       SHOW PRIVATE
     -------------------------------- */
 
     if (privateLink) {
@@ -193,8 +258,16 @@ async function checkAccess() {
         privateLink.style.display =
             "flex";
 
+        privateLink.classList.add(
+            "active"
+        );
+
     }
 
+
+    /* --------------------------------
+       PROGRAMS ACCESS
+    -------------------------------- */
 
     const programsRoles = [
         "classmate",
@@ -204,13 +277,12 @@ async function checkAccess() {
     ];
 
 
-    if (
-        programsLink &&
-        programsRoles.includes(role)
-    ) {
+    if (programsButton) {
 
-        programsLink.style.display =
-            "flex";
+        programsButton.style.display =
+            programsRoles.includes(role)
+                ? "flex"
+                : "none";
 
     }
 

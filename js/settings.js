@@ -1,26 +1,9 @@
 import { supabase } from "./supabase.js";
 
 
-const programsLink =
-    document.getElementById("programsLink");
-
-const privateLink =
-    document.getElementById("privateLink");
-
-const profileUsername =
-    document.getElementById("profileUsername");
-
-const profileEmail =
-    document.getElementById("profileEmail");
-
-const profileRole =
-    document.getElementById("profileRole");
-
-const profileAvatar =
-    document.getElementById("profileAvatar");
-
-const logoutButton =
-    document.getElementById("logoutButton");
+/* ========================================
+   ELEMENTS
+======================================== */
 
 const sidebar =
     document.getElementById("sidebar");
@@ -31,27 +14,79 @@ const mobileMenuButton =
 const sidebarOverlay =
     document.getElementById("sidebarOverlay");
 
+const programsButton =
+    document.getElementById("programsButton");
+
+const programsMenu =
+    document.getElementById("programsMenu");
+
+const programsArrow =
+    document.getElementById("programsArrow");
+
+const privateLink =
+    document.getElementById("privateLink");
+
 
 /* ========================================
-   MOBILE SIDEBAR
+   PROFILE ELEMENTS
+======================================== */
+
+const profileAvatar =
+    document.getElementById("profileAvatar");
+
+const profileAvatarImage =
+    document.getElementById("profileAvatarImage");
+
+const profileUsername =
+    document.getElementById("profileUsername");
+
+const profileEmail =
+    document.getElementById("profileEmail");
+
+const profileRole =
+    document.getElementById("profileRole");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+/* ========================================
+   ACTIVE SIDEBAR ITEM
+======================================== */
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(function (link) {
+
+        link.classList.remove("active");
+
+    });
+
+
+const settingsLink =
+    document.querySelector(
+        '.sidebar-bottom a[href="./settings.html"]'
+    );
+
+
+settingsLink?.classList.add("active");
+
+
+/* ========================================
+   SIDEBAR
 ======================================== */
 
 function closeSidebar() {
 
-    if (sidebar) {
-        sidebar.classList.remove("open");
-    }
+    sidebar?.classList.remove("open");
 
-    if (sidebarOverlay) {
-        sidebarOverlay.classList.remove("show");
-    }
+    sidebarOverlay?.classList.remove("show");
 
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
 }
 
 
@@ -64,100 +99,210 @@ function toggleSidebar() {
     const isOpen =
         sidebar.classList.toggle("open");
 
-    if (sidebarOverlay) {
-        sidebarOverlay.classList.toggle(
-            "show",
-            isOpen
-        );
-    }
+    sidebarOverlay?.classList.toggle(
+        "show",
+        isOpen
+    );
 
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
-    }
-}
-
-
-if (mobileMenuButton) {
-
-    mobileMenuButton.addEventListener(
-        "click",
-        toggleSidebar
+    mobileMenuButton?.setAttribute(
+        "aria-expanded",
+        String(isOpen)
     );
 
 }
 
 
-if (sidebarOverlay) {
-
-    sidebarOverlay.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-}
+mobileMenuButton?.addEventListener(
+    "click",
+    toggleSidebar
+);
 
 
-document.querySelectorAll(
-    ".sidebar-link"
-).forEach(function (link) {
-
-    link.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-});
+sidebarOverlay?.addEventListener(
+    "click",
+    closeSidebar
+);
 
 
 /* ========================================
-   LOAD PROFILE
+   PROGRAMS DROPDOWN
 ======================================== */
 
-async function loadProfile() {
+programsButton?.addEventListener(
+    "click",
+    function () {
+
+        if (!programsMenu) {
+            return;
+        }
+
+        const isOpen =
+            programsMenu.classList.toggle("show");
+
+        programsArrow?.classList.toggle(
+            "open",
+            isOpen
+        );
+
+        programsButton.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+        );
+
+    }
+);
+
+
+/* ========================================
+   SIDEBAR LINKS
+======================================== */
+
+document
+    .querySelectorAll(".sidebar-sublink")
+    .forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            closeSidebar
+        );
+
+    });
+
+
+document
+    .querySelectorAll(".sidebar-link")
+    .forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    link === programsButton
+                ) {
+                    return;
+                }
+
+                closeSidebar();
+
+            }
+        );
+
+    });
+
+
+/* ========================================
+   LOAD USER
+======================================== */
+
+async function loadUser() {
 
     const {
-        data: userData,
-        error: userError
+        data,
+        error
     } = await supabase.auth.getUser();
 
 
-    /* --------------------------------
-       NOT LOGGED IN
-    -------------------------------- */
-
     if (
-        userError ||
-        !userData.user
+        error ||
+        !data.user
     ) {
 
         window.location.href =
             "./login.html";
 
         return;
+
     }
 
 
     const user =
-        userData.user;
+        data.user;
+
+
+    const metadata =
+        user.user_metadata || {};
 
 
     /* --------------------------------
-       DISPLAY EMAIL
+       NAME
+    -------------------------------- */
+
+    const name =
+        metadata.full_name ||
+        metadata.name ||
+        user.email ||
+        "User";
+
+
+    if (profileUsername) {
+
+        profileUsername.textContent =
+            name;
+
+    }
+
+
+    /* --------------------------------
+       EMAIL
     -------------------------------- */
 
     if (profileEmail) {
 
         profileEmail.textContent =
-            user.email || "Not available";
+            user.email ||
+            "Not available";
 
     }
 
 
     /* --------------------------------
-       LOAD PROFILE DATA
+       PROFILE PICTURE
+    -------------------------------- */
+
+    const picture =
+        metadata.avatar_url ||
+        metadata.picture ||
+        "";
+
+
+    if (
+        picture &&
+        profileAvatarImage
+    ) {
+
+        profileAvatarImage.src =
+            picture;
+
+        profileAvatarImage.style.display =
+            "block";
+
+        profileAvatar?.style.setProperty(
+            "display",
+            "none"
+        );
+
+    }
+    else if (profileAvatar) {
+
+        profileAvatar.textContent =
+            name
+                .charAt(0)
+                .toUpperCase();
+
+        profileAvatar.style.display =
+            "flex";
+
+        profileAvatarImage?.style.setProperty(
+            "display",
+            "none"
+        );
+
+    }
+
+
+    /* --------------------------------
+       PROFILE / ROLE
     -------------------------------- */
 
     const {
@@ -180,61 +325,26 @@ async function loadProfile() {
             profileError
         );
 
-        if (profileUsername) {
-            profileUsername.textContent =
-                "Unavailable";
-        }
-
         if (profileRole) {
+
             profileRole.textContent =
                 "Unavailable";
+
         }
 
         return;
+
     }
 
-
-    /* --------------------------------
-       DISPLAY USERNAME
-    -------------------------------- */
-
-    const username =
-        profile.username || "User";
 
     const role =
         profile.role || "viewer";
 
 
-    if (profileUsername) {
-
-        profileUsername.textContent =
-            username;
-
-    }
-
-
-    /* --------------------------------
-       DISPLAY ROLE
-    -------------------------------- */
-
     if (profileRole) {
 
         profileRole.textContent =
             role;
-
-    }
-
-
-    /* --------------------------------
-       PROFILE AVATAR
-    -------------------------------- */
-
-    if (profileAvatar) {
-
-        profileAvatar.textContent =
-            username
-                .charAt(0)
-                .toUpperCase();
 
     }
 
@@ -251,13 +361,12 @@ async function loadProfile() {
     ];
 
 
-    if (
-        programsLink &&
-        programsRoles.includes(role)
-    ) {
+    if (programsButton) {
 
-        programsLink.style.display =
-            "flex";
+        programsButton.style.display =
+            programsRoles.includes(role)
+                ? "flex"
+                : "none";
 
     }
 
@@ -272,13 +381,12 @@ async function loadProfile() {
     ];
 
 
-    if (
-        privateLink &&
-        privateRoles.includes(role)
-    ) {
+    if (privateLink) {
 
         privateLink.style.display =
-            "flex";
+            privateRoles.includes(role)
+                ? "flex"
+                : "none";
 
     }
 
@@ -289,55 +397,53 @@ async function loadProfile() {
    LOGOUT
 ======================================== */
 
-if (logoutButton) {
+logoutButton?.addEventListener(
+    "click",
+    async function () {
 
-    logoutButton.addEventListener(
-        "click",
-        async function () {
+        logoutButton.disabled =
+            true;
 
-            logoutButton.disabled = true;
+        logoutButton.textContent =
+            "Logging out...";
+
+
+        const {
+            error
+        } = await supabase.auth.signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            logoutButton.disabled =
+                false;
 
             logoutButton.textContent =
-                "Logging out...";
+                "Log out";
 
+            alert(
+                "Unable to log out. Please try again."
+            );
 
-            const {
-                error
-            } = await supabase.auth.signOut();
-
-
-            if (error) {
-
-                console.error(
-                    "Logout error:",
-                    error
-                );
-
-                logoutButton.disabled =
-                    false;
-
-                logoutButton.textContent =
-                    "Log out";
-
-                alert(
-                    "Unable to log out. Please try again."
-                );
-
-                return;
-            }
-
-
-            window.location.href =
-                "./login.html";
+            return;
 
         }
-    );
 
-}
+
+        window.location.href =
+            "./login.html";
+
+    }
+);
 
 
 /* ========================================
    START
 ======================================== */
 
-loadProfile();
+loadUser();

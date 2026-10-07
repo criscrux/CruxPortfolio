@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>1st Year Prelim - Crux's Portfolio</title>
+
+    <link rel="stylesheet" href="../../../css/style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="../../index.html#home"
+                class="sidebar-link"
+                data-section="home"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+
+            <a
+                href="../../index.html#about"
+                class="sidebar-link"
+                data-section="about"
+            >
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
+            </a>
+
+
+            <a
+                href="../../index.html#socials"
+                class="sidebar-link"
+                data-section="socials"
+            >
+                <span class="sidebar-icon">@</span>
+                <span>Socials</span>
+            </a>
+
+
+            <!-- ========================================
+                 PROGRAMS DROPDOWN
+            ======================================== -->
+
+            <div class="sidebar-dropdown">
+
+                <button
+                    type="button"
+                    class="sidebar-link sidebar-dropdown-button"
+                    id="programsButton"
+                    aria-expanded="false"
+                >
+
+                    <span class="sidebar-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        Programs
+                    </span>
+
+                    <span
+                        class="sidebar-dropdown-arrow"
+                        id="programsArrow"
+                    >
+                        ›
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="sidebar-dropdown-menu"
+                    id="programsMenu"
+                >
+
+                    <a
+                        href="../1st-year/"
+                        class="sidebar-sublink"
+                    >
+                        1st Year BSCpE
+                    </a>
+
+                    <a
+                        href="../2nd-year/"
+                        class="sidebar-sublink"
+                    >
+                        2nd Year BSCpE
+                    </a>
+
+                    <a
+                        href="../3rd-year/"
+                        class="sidebar-sublink"
+                    >
+                        3rd Year BSCpE
+                    </a>
+
+                    <a
+                        href="../4th-year/"
+                        class="sidebar-sublink"
+                    >
+                        4th Year BSCpE
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 PRIVATE
+            ======================================== -->
+
+            <a
+                href="../../private.html"
+                id="privateLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Private
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- ========================================
+             SETTINGS
+        ======================================== -->
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../../settings.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MENU BUTTON -->
+
+    <button
+        type="button"
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
+
+
+    <!-- OVERLAY -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- MAIN -->
+
+    <main class="site-main">
+
+        <section class="section">
+
+            <div class="container">
+
+                <p class="section-label">
+                    PROGRAMS
+                </p>
+
+                <h1 class="page-heading">
+                    1st Year BSCpE
+                </h1>
+
+                <p class="section-description">
+                    Prelim Programs
+                </p>
+
+
+                <!-- QUIZ 1 - GRADING SYSTEM -->
+
+                <article class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <span class="code-card-label">
+                                JAVA
+                            </span>
+
+                            <h2>
+                                Quiz 1 - Grading System
+                            </h2>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>package com.crux.quiz;
+
+import java.util.Scanner;
+
+public class Quiz1 {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String firstName, middleInitial, lastName, fullName;
+
+        //Name
+        System.out.println("-----------NAME-----------");
+        System.out.println("First Name: ");
+        firstName = input.nextLine();
+        System.out.println("Middle Initial: ");
+        middleInitial = input.nextLine();
+        System.out.println("Last Name: ");
+        lastName = input.nextLine();
+        fullName = lastName + ", " + firstName + " " + middleInitial + ". ";
+
+        //Prelim
+        double attendanceGradeP, classParGradeP, quizGradeP, examGradeP;
+
+        System.out.println("-----------PRELIM-----------");
+        System.out.println("Attendance Grade: ");
+        attendanceGradeP = input.nextDouble();
+        System.out.println("Class Participation Grade: ");
+        classParGradeP = input.nextDouble();
+        System.out.println("Quiz Grade: ");
+        quizGradeP = input.nextDouble();
+        System.out.println("Exam Grade: ");
+        examGradeP = input.nextDouble();
+
+        //Midterm
+        double attendanceGradeM, classParGradeM, quizGradeM, examGradeM;
+
+        System.out.println("-----------MIDTERM-----------");
+        System.out.println("Attendance Grade: ");
+        attendanceGradeM = input.nextDouble();
+        System.out.println("Class Participation Grade: ");
+        classParGradeM = input.nextDouble();
+        System.out.println("Quiz Grade: ");
+        quizGradeM = input.nextDouble();
+        System.out.println("Exam Grade: ");
+        examGradeM = input.nextDouble();
+
+        //Finals
+        double attendanceGradeF, classParGradeF, quizGradeF, examGradeF;
+
+        System.out.println("-----------FINALS-----------");
+        System.out.println("Attendance Grade: ");
+        attendanceGradeF = input.nextDouble();
+        System.out.println("Class Participation Grade: ");
+        classParGradeF = input.nextDouble();
+        System.out.println("Quiz Grade: ");
+        quizGradeF = input.nextDouble();
+        System.out.println("Exam Grade: ");
+        examGradeF = input.nextDouble();
+
+        //Summary
+        double sum, difference, product, quotient;
+
+        //Prelim
+        product = attendanceGradeP * 5;
+        quotient = product / 100;
+        sum = quotient;
+        product = classParGradeP * 15;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = quizGradeP * 30;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = examGradeP * 50;
+        quotient = product / 100;
+        sum = sum + quotient;
+        double prelimGrade = sum;
+
+        //Midterm
+        product = attendanceGradeM * 5;
+        quotient = product / 100;
+        sum = quotient;
+        product = classParGradeM * 15;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = quizGradeM * 30;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = examGradeM * 50;
+        quotient = product / 100;
+        sum = sum + quotient;
+        double midtermGrade = sum;
+
+        //Finals
+        product = attendanceGradeF * 5;
+        quotient = product / 100;
+        sum = quotient;
+        product = classParGradeF * 15;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = quizGradeF * 30;
+        quotient = product / 100;
+        sum = sum + quotient;
+        product = examGradeF * 50;
+        quotient = product / 100;
+        sum = sum + quotient;
+        double finalGrade = sum;
+
+        //Semester Grade
+        double semesterGrade = (prelimGrade * 0.25)
+                + (midtermGrade * 0.25)
+                + (finalGrade * 0.50);
+
+        //Summary Prints
+        System.out.println("----------SUMMARY----------");
+        System.out.println("Name: " + fullName);
+        System.out.println("Prelim Grade: " + prelimGrade);
+        System.out.println("Midterm Grade: " + midtermGrade);
+        System.out.println("Final Grade: " + finalGrade);
+        System.out.println("Semester Grade: " + semesterGrade);
+
+        input.close();
+    }
+}</code></pre>
+
+                </article>
+
+
+                <!-- QUIZ 1 - REMEDIAL -->
+
+                <article class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <span class="code-card-label">
+                                JAVA
+                            </span>
+
+                            <h2>
+                                Quiz 1 - Remedial
+                            </h2>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>package com.crux.quiz;
+
+import java.util.Scanner;
+
+public class Quiz1Remi {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String firstName, middleInitial, lastName, fullName;
+
+        //Name
+        System.out.println("-----------NAME-----------");
+        System.out.print("First Name: ");
+        firstName = input.nextLine();
+        System.out.print("Middle Initial: ");
+        middleInitial = input.nextLine();
+        System.out.print("Last Name: ");
+        lastName = input.nextLine();
+
+        //WORK DETAILS
+        double hoursWorked, ratePerHour;
+
+        System.out.println("-------WORK DETAILS-------");
+        System.out.print("Hours Worked: ");
+        hoursWorked = input.nextDouble();
+        System.out.print("Rate per Hour: ");
+        ratePerHour = input.nextDouble();
+
+        //STATUTORY DEDUCTIONS
+        double sss, philHealth, pagIbig, tax;
+
+        System.out.println("---STATUTORY DEDUCTIONS---");
+        System.out.print("SSS: ");
+        sss = input.nextDouble();
+        System.out.print("PhilHealth: ");
+        philHealth = input.nextDouble();
+        System.out.print("Pag-IBIG: ");
+        pagIbig = input.nextDouble();
+        System.out.print("Tax: ");
+        tax = input.nextDouble();
+
+        //Summary
+        fullName = lastName + ", " + firstName + " " + middleInitial + ". ";
+        double grossSalary = hoursWorked * ratePerHour;
+        double totalDeduction = sss + philHealth + pagIbig + tax;
+        double netSalary = grossSalary - totalDeduction;
+
+        System.out.println("---------SUMMARY----------");
+        System.out.println("Name: " + fullName);
+        System.out.println("Gross Salary: " + grossSalary);
+        System.out.println("Total Deduction: " + totalDeduction);
+        System.out.println("Net Salary: " + netSalary);
+
+    }
+}</code></pre>
+
+                </article>
+
+
+                <!-- QUIZ 2 - MEASUREMENT CONVERSION -->
+
+                <article class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <span class="code-card-label">
+                                JAVA
+                            </span>
+
+                            <h2>
+                                Quiz 2 - Measurement Conversion
+                            </h2>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>package com.crux.quiz;
+
+import java.util.Scanner;
+
+public class Quiz2 {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        double km, kmm, kmft, kmin, kmcm, kmmm;
+
+        System.out.println("-------Km to other units-------");
+        System.out.println("Diastance in km: ");
+        km = input.nextDouble();
+
+        kmm = km * 1000;
+        kmft = km * 3280.8399;
+        kmin = km * 39370.0787;
+        kmcm = km * 100000;
+        kmmm = km * 1000000;
+
+        System.out.println(km + "km = " + kmm + "km");
+        System.out.println(km + "km = " + kmft + "ft");
+        System.out.println(km + "km = " + kmin + "in");
+        System.out.println(km + "km = " + kmcm + "cm");
+        System.out.println(km + "km = " + kmmm + "mm");
+
+        double m, mkm, mft, min, mcm, mmm;
+
+        System.out.println("-------m to other units-------");
+        System.out.println("Distance in m: ");
+        m = input.nextDouble();
+
+        mkm = m / 1000;
+        mft = m * 3.2808399;
+        min = m * 39.3700787;
+        mcm = m * 100;
+        mmm = m * 1000;
+
+        System.out.println(m + "m = " + mkm + "km");
+        System.out.println(m + "m = " + mft + "ft");
+        System.out.println(m + "m = " + min + "in");
+        System.out.println(m + "m = " + mcm + "cm");
+        System.out.println(m + "m = " + mmm + "mm");
+
+        double ft, ftkm, ftm, ftin, ftcm, ftmm;
+
+        System.out.println("-------ft to other units-------");
+        System.out.println("Distance in ft: ");
+        ft = input.nextDouble();
+
+        ftkm = ft * 0.000305;
+        ftm = ft * 0.3048;
+        ftin = ft * 12;
+        ftcm = ft * 30.48;
+        ftmm = ft * 304.8;
+
+        System.out.println(ft + "ft = " + ftkm + "km");
+        System.out.println(ft + "ft = " + ftm + "m");
+        System.out.println(ft + "ft = " + ftin + "in");
+        System.out.println(ft + "ft = " + ftcm + "cm");
+        System.out.println(ft + "ft = " + ftmm + "mm");
+
+        //in need checking
+        double in, inkm, inm, inft, incm, inmm;
+
+        System.out.println("-------in to other units-------");
+        System.out.println("Distance in inches: ");
+        in = input.nextDouble();
+
+        inkm = in / 1000;
+        inm = in * 0.0254;
+        inft = in / 12;
+        incm = in * 100;
+        inmm = in * 1000;
+
+        System.out.println(in + "in = " + inkm + "km");
+        System.out.println(in + "in = " + inm + "m");
+        System.out.println(in + "in = " + inft + "ft");
+        System.out.println(in + "in = " + incm + "cm");
+        System.out.println(in + "in = " + inmm + "mm");
+
+        //cm
+        double cm, cmkm, cmm, cmft, cmin, cmmm;
+
+        System.out.println("-------cm to other units-------");
+        System.out.println("Distance in cm: ");
+        cm = input.nextDouble();
+
+        cmkm = cm * 1.00001;
+        cmm = cm * 0.01;
+        cmft = cm * 0.032808;
+        cmin = cm * 393701;
+        cmmm = cm / 10;
+
+        System.out.println(cm + "cm = " + cmkm + "km");
+        System.out.println(cm + "cm = " + cmm + "m");
+        System.out.println(cm + "cm = " + cmft + "ft");
+        System.out.println(cm + "cm = " + cmin + "in");
+        System.out.println(cm + "cm = " + cmmm + "mm");
+
+        //mm
+        double mm, mmkm, mim, mmft, mmin, mmcm;
+
+        System.out.println("-------mm to other units-------");
+        System.out.println("Distance in ft: ");
+        mm = input.nextDouble();
+
+        mmkm = mm * 0.000001;
+        mim = mm * 0.001;
+        mmft = mm * 0.003281;
+        mmin = mm * 0.03937;
+        mmcm = mm * 0.1;
+
+        System.out.println(mm + "mm = " + mmkm + "km");
+        System.out.println(mm + "mm = " + mim + "m");
+        System.out.println(mm + "mm = " + mmft + "ft");
+        System.out.println(mm + "mm = " + mmin + "in");
+        System.out.println(mm + "mm = " + mmcm + "cm");
+
+    }
+}</code></pre>
+
+                </article>
+
+
+                <!-- PRELIMINARY EXAM -->
+
+                <article class="code-card">
+
+                    <div class="code-card-header">
+
+                        <div>
+                            <span class="code-card-label">
+                                JAVA
+                            </span>
+
+                            <h2>
+                                Preliminary Exam - Grading System with Mark Indicator
+                            </h2>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="copy-button"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>package com.crux.prelim1;
+
+import java.util.Scanner;
+
+public class Test1PreLim {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        //Name
+        String firstName, middleName, middleInitial, lastName, fullName;
+        
+        System.out.println("-----------NAME-----------");
+        System.out.print("First Name: ");
+        firstName = input.nextLine();
+        System.out.print("Middle Initial: ");
+        middleInitial = input.nextLine();
+        System.out.print("Last Name: ");
+        lastName = input.nextLine();
+        fullName = lastName + ", " + firstName + " " + middleInitial + ". ";
+
+        //PRELIM
+        double pag, pcpg, pqg, peg;
+        
+        System.out.println("-------PRELIM-------");
+        System.out.print("Attendance Grade: ");
+        pag = input.nextDouble();
+        System.out.print("Class Participation Grade: ");
+        pcpg = input.nextDouble();
+        System.out.print("Quiz Grade: ");
+        peg = input.nextDouble();
+        System.out.print("Exam Grade: ");
+        pqg = input.nextDouble();
+
+        //MIDTERM
+        double mag, mcpg, mqg, meg;
+        
+        System.out.println("-------MIDTERM-------");
+        System.out.print("Attendance Grade: ");
+        mag = input.nextDouble();
+        System.out.print("Class Participation Grade: ");
+        mcpg = input.nextDouble();
+        System.out.print("Quiz Grade: ");
+        meg = input.nextDouble();
+        System.out.print("Exam Grade: ");
+        mqg = input.nextDouble();
+
+        //FINAL
+        double fag, fcpg, fqg, feg;
+        
+        System.out.println("-------FINAL-------");
+        System.out.print("Attendance Grade: ");
+        fag = input.nextDouble();
+        System.out.print("Class Participation Grade: ");
+        fcpg = input.nextDouble();
+        System.out.print("Quiz Grade: ");
+        feg = input.nextDouble();
+        System.out.print("Exam Grade: ");
+        fqg = input.nextDouble();
+
+        //Summary
+        double pGrade = (pag * 5 / 100) + (pcpg * 15 / 100) + (pqg * 30 / 100) + (peg * 50 / 100);
+        double mGrade = (mag * 5 / 100) + (mcpg * 15 / 100) + (mqg * 30 / 100) + (meg * 50 / 100);
+        double fGrade = (fag * 5 / 100) + (fcpg * 15 / 100) + (fqg * 30 / 100) + (feg * 50 / 100);
+        double sGrade = (pGrade * 25 / 100) + (mGrade * 25 / 100) + (fGrade * 50 / 100);
+
+        System.out.println("---------SUMMARY----------");
+        System.out.println("Name: " + fullName);
+        System.out.println("Prelim Grade: " + pGrade);
+        System.out.println("Midterm Grade: " + mGrade);
+        System.out.println("Final Grade: " + fGrade);
+
+        if (sGrade >= 95 && sGrade &lt;= 100) {
+            System.out.println("Semester Grade: " + sGrade + " " + "(A)");
+        } else if (sGrade >= 90 && sGrade &lt; 95) {
+            System.out.println("Semester Grade: " + sGrade + " " + "(B)");
+        } else if (sGrade >= 85 && sGrade &lt; 90) {
+            System.out.println("Semester Grade: " + sGrade + " " + "(C)");
+        } else if (sGrade >= 80 && sGrade &lt; 85) {
+            System.out.println("Semester Grade: " + sGrade + " " + "(D)");
+        } else if (sGrade >= 75 && sGrade &lt; 80) {
+            System.out.println("Semester Grade: " + sGrade + " " + "(E)");
+        } else {
+            System.out.println("Semester Grade: " + sGrade + " " + "(F)");
+        }
+        if (sGrade >= 75 && sGrade &lt; 100) {
+            System.out.println("Remarks: PASSED");
+        } else {
+            System.out.println("Remarks: FAILED");
+        }
+    }
+}</code></pre>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- SCRIPT -->
+
+    <script type="module" src="../../../js/script.js"></script>
+
+
+</body>
+
+</html>

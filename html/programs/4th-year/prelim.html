@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>4th Year Prelim - Crux's Portfolio</title>
+
+    <link rel="stylesheet" href="../../../css/style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-brand">
+            <span>CRUX</span>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="../../index.html#home"
+                class="sidebar-link"
+                data-section="home"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+
+            <a
+                href="../../index.html#about"
+                class="sidebar-link"
+                data-section="about"
+            >
+                <span class="sidebar-icon">◎</span>
+                <span>About</span>
+            </a>
+
+
+            <a
+                href="../../index.html#socials"
+                class="sidebar-link"
+                data-section="socials"
+            >
+                <span class="sidebar-icon">@</span>
+                <span>Socials</span>
+            </a>
+
+
+            <!-- ========================================
+                 PROGRAMS DROPDOWN
+            ======================================== -->
+
+            <div class="sidebar-dropdown">
+
+                <button
+                    type="button"
+                    class="sidebar-link sidebar-dropdown-button"
+                    id="programsButton"
+                    aria-expanded="false"
+                >
+
+                    <span class="sidebar-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        Programs
+                    </span>
+
+                    <span
+                        class="sidebar-dropdown-arrow"
+                        id="programsArrow"
+                    >
+                        ›
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="sidebar-dropdown-menu"
+                    id="programsMenu"
+                >
+
+                    <a
+                        href="../1st-year/"
+                        class="sidebar-sublink"
+                    >
+                        1st Year BSCpE
+                    </a>
+
+                    <a
+                        href="../2nd-year/"
+                        class="sidebar-sublink"
+                    >
+                        2nd Year BSCpE
+                    </a>
+
+                    <a
+                        href="../3rd-year/"
+                        class="sidebar-sublink"
+                    >
+                        3rd Year BSCpE
+                    </a>
+
+                    <a
+                        href="../4th-year/"
+                        class="sidebar-sublink"
+                    >
+                        4th Year BSCpE
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================================
+                 PRIVATE
+            ======================================== -->
+
+            <a
+                href="../../private.html"
+                id="privateLink"
+                class="sidebar-link"
+                style="display: none;"
+            >
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                <span>
+                    Private
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <!-- ========================================
+             SETTINGS
+        ======================================== -->
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../../settings.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MENU BUTTON -->
+
+    <button
+        type="button"
+        class="mobile-menu-button"
+        id="mobileMenuButton"
+        aria-label="Open navigation"
+        aria-expanded="false"
+    >
+        ☰
+    </button>
+
+
+    <!-- OVERLAY -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- MAIN -->
+
+    <main class="site-main">
+
+        <section class="section">
+
+            <div class="container">
+
+                <p class="section-label">
+                    PROGRAMS
+                </p>
+
+
+                <h1 class="page-heading">
+                    4th Year BSCpE
+                </h1>
+
+
+                <p class="section-description">
+                    Prelim Programs
+                </p>
+
+
+                <!-- PROGRAMS -->
+
+                <div class="program-code-list">
+
+                    <article class="code-card">
+
+                        <div class="code-card-header">
+
+                            <div>
+                                <span class="code-card-label">
+                                    JAVA
+                                </span>
+
+                                <h2>
+                                    Sample Program
+                                </h2>
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="copy-button"
+                            >
+                                Copy
+                            </button>
+
+                        </div>
+
+
+                        <pre><code>public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello, World!");
+
+    }
+
+}</code></pre>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- SCRIPT -->
+
+    <script type="module" src="../../../js/script.js"></script>
+
+
+</body>
+
+</html>
