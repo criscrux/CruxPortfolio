@@ -29,6 +29,9 @@ const programsArrow =
 const privateLink =
     document.getElementById("privateLink");
 
+const danieLink =
+    document.getElementById("danieLink");
+
 const loginButton =
     document.getElementById("loginButton");
 
@@ -349,23 +352,34 @@ async function loadSession() {
             "admin"
         ];
 
-
         if (privateLink) {
-
             privateLink.style.display =
                 privateRoles.includes(role)
                     ? "flex"
                     : "none";
+        }
 
+        /* --------------------------------
+           DANIE PAGE ACCESS
+        -------------------------------- */
+
+        const danieRoles = [
+            "partner",
+            "admin"
+        ];
+
+        if (danieLink) {
+            danieLink.style.display =
+                danieRoles.includes(role)
+                    ? "flex"
+                    : "none";
         }
 
     } catch (error) {
-
         console.error(
             "Authentication error:",
             error
         );
-
     }
 
 }

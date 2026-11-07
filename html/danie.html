@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#000000">
+    <title>For Bubby | Crux's Portfolio</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/danie.css">
+</head>
+
+<body class="her-page-body">
+
+    <!-- ========================================
+         SHARED SIDEBAR
+    ======================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- ========================================
+         ANIMATED FLOWER BACKGROUND
+    ======================================== -->
+
+    <div class="flower-background" aria-hidden="true">
+
+        <iframe
+            src="./flower.html"
+            title="Animated flowers"
+            tabindex="-1"
+        ></iframe>
+
+    </div>
+
+
+    <!-- ========================================
+         PINK TRANSITION EFFECT
+    ======================================== -->
+
+    <div
+        class="transition-circle"
+        id="transitionCircle"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- ========================================
+         ACCESS VERIFICATION MESSAGE
+    ======================================== -->
+
+    <div class="access-message" id="accessMessage">
+        Checking access...
+    </div>
+
+
+    <!-- ========================================
+         MAIN PAGE
+    ======================================== -->
+
+    <main class="her-page" id="herPage" hidden>
+
+        <!-- FLOWER OPENING PAGE -->
+
+        <section class="opening-screen" id="openingScreen">
+
+            <div class="opening-content" id="openingContent">
+
+                <p class="opening-greeting">
+                    Hello Bubby
+                </p>
+
+                <p class="opening-subtitle">
+                    My Baby Darling
+                </p>
+
+                <button
+                    type="button"
+                    class="primary-button start-button"
+                    id="startButton"
+                >
+                    Start
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================================
+             FIRST ANNIVERSARY PAGE
+        ======================================== -->
+
+        <section
+            class="intro-screen"
+            id="introScreen"
+            aria-live="polite"
+            hidden
+        >
+
+            <div class="intro-content">
+
+                <h1>
+                    Happy 1st Anniversary Bubby
+                </h1>
+
+                <p class="intro-message">
+                    I made this just for you.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================================
+             SECOND PAGE
+        ======================================== -->
+
+        <section
+            class="next-screen"
+            id="nextScreen"
+            aria-live="polite"
+            hidden
+        >
+
+            <div class="next-content">
+
+                <h1>
+                    Our Story
+                </h1>
+
+                <p>
+                    A little more of us, one page at a time.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================================
+             PAGE NAVIGATION
+        ======================================== -->
+
+        <nav
+            class="page-navigation"
+            id="pageNavigation"
+            aria-label="Page navigation"
+            hidden
+        >
+
+            <button
+                type="button"
+                class="page-nav-button back-button"
+                id="backButton"
+            >
+                <span aria-hidden="true">←</span>
+                Back
+            </button>
+
+            <button
+                type="button"
+                class="page-nav-button next-button"
+                id="nextButton"
+            >
+                Next
+                <span aria-hidden="true">→</span>
+            </button>
+
+        </nav>
+
+
+        <!-- ========================================
+             FULL-SCREEN BOOK PAGE TURN
+        ======================================== -->
+
+        <div
+            class="page-turn-overlay"
+            id="pageTurnOverlay"
+            hidden
+            aria-hidden="true"
+        >
+
+            <div
+                class="page-turn-sheet"
+                id="pageTurnSheet"
+            >
+
+                <div
+                    class="page-turn-face page-turn-front"
+                    id="pageTurnFront"
+                ></div>
+
+                <div class="page-turn-face page-turn-back"></div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ========================================
+         SCRIPTS
+    ======================================== -->
+
+    <script type="module" src="../js/sidebar.js"></script>
+    <script type="module" src="../js/danie.js"></script>
+
+</body>
+
+</html>

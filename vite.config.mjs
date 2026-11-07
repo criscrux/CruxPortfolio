@@ -32,6 +32,16 @@ export default defineConfig(({ command }) => ({
                     "html/private.html"
                 ),
 
+                danie: resolve(
+                    __dirname,
+                    "html/danie.html"
+                ),
+
+                flower: resolve(
+                    __dirname,
+                    "html/flower.html"
+                ),
+
                 settings: resolve(
                     __dirname,
                     "html/settings.html"

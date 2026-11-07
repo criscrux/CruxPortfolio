@@ -13,190 +13,10 @@
 <body>
 
     <!-- ========================================
-         SIDEBAR
+         SHARED SIDEBAR
     ======================================== -->
 
-    <aside class="sidebar" id="sidebar">
-
-        <div class="sidebar-brand">
-            <span>CRUX</span>
-        </div>
-
-
-        <nav class="sidebar-nav">
-
-            <a
-                href="#home"
-                class="sidebar-link active"
-                data-section="home"
-            >
-                <span class="sidebar-icon">⌂</span>
-                <span>Home</span>
-            </a>
-
-
-            <a
-                href="#about"
-                class="sidebar-link"
-                data-section="about"
-            >
-                <span class="sidebar-icon">◎</span>
-                <span>About</span>
-            </a>
-
-
-            <a
-                href="#socials"
-                class="sidebar-link"
-                data-section="socials"
-            >
-                <span class="sidebar-icon">@</span>
-                <span>Socials</span>
-            </a>
-
-
-            <!-- ========================================
-                 PROGRAMS DROPDOWN
-            ======================================== -->
-
-            <div class="sidebar-dropdown">
-
-                <button
-                    type="button"
-                    class="sidebar-link sidebar-dropdown-button"
-                    id="programsButton"
-                    aria-expanded="false"
-                >
-
-                    <span class="sidebar-icon">
-                        ◇
-                    </span>
-
-                    <span>
-                        Programs
-                    </span>
-
-                    <span
-                        class="sidebar-dropdown-arrow"
-                        id="programsArrow"
-                    >
-                        ›
-                    </span>
-
-                </button>
-
-
-                <div
-                    class="sidebar-dropdown-menu"
-                    id="programsMenu"
-                >
-
-                    <a
-                        href="./programs/1st-year/"
-                        class="sidebar-sublink"
-                    >
-                        1st Year BSCpE
-                    </a>
-
-                    <a
-                        href="./programs/2nd-year/"
-                        class="sidebar-sublink"
-                    >
-                        2nd Year BSCpE
-                    </a>
-
-                    <a
-                        href="./programs/3rd-year/"
-                        class="sidebar-sublink"
-                    >
-                        3rd Year BSCpE
-                    </a>
-
-                    <a
-                        href="./programs/4th-year/"
-                        class="sidebar-sublink"
-                    >
-                        4th Year BSCpE
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- ========================================
-                 PRIVATE
-            ======================================== -->
-
-            <a
-                href="./private.html"
-                id="privateLink"
-                class="sidebar-link"
-                style="display: none;"
-            >
-
-                <span class="sidebar-icon">
-                    ▣
-                </span>
-
-                <span>
-                    Private
-                </span>
-
-            </a>
-
-        </nav>
-
-
-        <!-- ========================================
-             SETTINGS
-        ======================================== -->
-
-        <div class="sidebar-bottom">
-
-            <a
-                href="./settings.html"
-                class="sidebar-link"
-            >
-
-                <span class="sidebar-icon">
-                    ⚙
-                </span>
-
-                <span>
-                    Settings
-                </span>
-
-            </a>
-
-        </div>
-
-    </aside>
-
-
-    <!-- ========================================
-         MENU BUTTON
-    ======================================== -->
-
-    <button
-        type="button"
-        class="mobile-menu-button"
-        id="mobileMenuButton"
-        aria-label="Open navigation"
-        aria-expanded="false"
-    >
-        ☰
-    </button>
-
-
-    <!-- ========================================
-         OVERLAY
-    ======================================== -->
-
-    <div
-        class="sidebar-overlay"
-        id="sidebarOverlay"
-    ></div>
+    <div id="sidebar-container"></div>
 
 
     <!-- ========================================
@@ -210,10 +30,7 @@
              HOME
         ======================================== -->
 
-        <section
-            class="hero"
-            id="home"
-        >
+        <section class="hero" id="home">
 
             <div class="container">
 
@@ -221,30 +38,21 @@
                     CRUX
                 </div>
 
-
                 <div class="hero-line"></div>
-
 
                 <p class="hero-label">
                     PERSONAL PORTFOLIO
                 </p>
 
-
                 <h1>
                     Welcome to my website
                 </h1>
-
 
                 <p class="hero-description">
                     A collection of my projects, programs, and personal work.
                 </p>
 
-
-                <a
-                    href="./login.html"
-                    class="primary-button"
-                    id="loginButton"
-                >
+                <a href="./login.html" class="primary-button" id="loginButton">
                     Login
                 </a>
 
@@ -257,10 +65,7 @@
              ABOUT
         ======================================== -->
 
-        <section
-            class="section about"
-            id="about"
-        >
+        <section class="section about" id="about">
 
             <div class="container">
 
@@ -268,11 +73,9 @@
                     ABOUT
                 </p>
 
-
                 <h2>
                     About Me
                 </h2>
-
 
                 <p class="section-description">
                     Welcome to my personal website.
@@ -288,10 +91,7 @@
              SOCIALS
         ======================================== -->
 
-        <section
-            class="section socials"
-            id="socials"
-        >
+        <section class="section socials" id="socials">
 
             <div class="container">
 
@@ -299,19 +99,18 @@
                     SOCIALS
                 </p>
 
-
                 <h2>
                     My Socials
                 </h2>
-
 
                 <p class="section-description">
                     You can find me on these platforms.
                 </p>
 
-
                 <div class="socials-grid">
 
+
+                    <!-- FACEBOOK -->
 
                     <a
                         href="https://www.facebook.com/share/1BDc4t86wQ/?mibextid=wwXIfr"
@@ -343,6 +142,8 @@
                     </a>
 
 
+                    <!-- INSTAGRAM -->
+
                     <a
                         href="https://www.instagram.com/criscrux9521/"
                         target="_blank"
@@ -372,6 +173,8 @@
 
                     </a>
 
+
+                    <!-- TIKTOK -->
 
                     <a
                         href="https://www.tiktok.com/@criscruxgg?_r=1&_t=ZS-9ALrCSFmp3H"
@@ -403,6 +206,8 @@
                     </a>
 
 
+                    <!-- DISCORD -->
+
                     <a
                         href="https://discord.com/users/945910967764676618"
                         target="_blank"
@@ -432,6 +237,8 @@
 
                     </a>
 
+
+                    <!-- TELEGRAM -->
 
                     <a
                         href="https://t.me/DnCrux"
@@ -463,6 +270,8 @@
                     </a>
 
 
+                    <!-- GITHUB -->
+
                     <a
                         href="https://github.com/criscrux"
                         target="_blank"
@@ -492,6 +301,7 @@
 
                     </a>
 
+
                 </div>
 
             </div>
@@ -502,10 +312,11 @@
     </main>
 
 
-    <script
-        type="module"
-        src="../js/script.js"
-    ></script>
+    <!-- ========================================
+         SHARED SIDEBAR SCRIPT
+    ======================================== -->
+
+    <script type="module" src="../js/sidebar.js"></script>
 
 </body>
 
