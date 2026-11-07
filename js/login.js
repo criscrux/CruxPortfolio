@@ -1,4 +1,5 @@
-﻿import { supabase } from "./supabase.js";
+
+import { supabase } from "./supabase.js";
 
 const googleLogin = document.getElementById("googleLogin");
 const loginMessage = document.getElementById("loginMessage");

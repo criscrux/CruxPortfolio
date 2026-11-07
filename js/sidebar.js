@@ -14,16 +14,17 @@ async function loadSidebar() {
     }
 
     try {
-        const response = await fetch(
-            `${import.meta.env.BASE_URL}html/components/sidebar.html`
-        );
+        const sidebarPath = import.meta.env.PROD
+            ? `${import.meta.env.BASE_URL}components/sidebar.html`
+            : `${import.meta.env.BASE_URL}html/components/sidebar.html`;
+
+        const response = await fetch(sidebarPath);
 
         if (!response.ok) {
-            throw new Error("Could not load sidebar.html");
+            throw new Error(`Could not load sidebar.html: ${response.status}`);
         }
 
         const html = await response.text();
-
         container.innerHTML = html;
 
         initializeSidebar();
@@ -42,28 +43,30 @@ function updateSidebarLinks() {
 
     const baseURL = import.meta.env.BASE_URL;
 
+    const pageRoot = import.meta.env.PROD
+        ? baseURL
+        : `${baseURL}html/`;
+
     const links = {
-        home: `${baseURL}html/index.html#home`,
-        about: `${baseURL}html/index.html#about`,
-        socials: `${baseURL}html/index.html#socials`,
+        home: `${pageRoot}index.html#home`,
+        about: `${pageRoot}index.html#about`,
+        socials: `${pageRoot}index.html#socials`,
 
-        "1st-year": `${baseURL}html/programs/1st-year/`,
-        "2nd-year": `${baseURL}html/programs/2nd-year/`,
-        "3rd-year": `${baseURL}html/programs/3rd-year/`,
-        "4th-year": `${baseURL}html/programs/4th-year/`,
+        "1st-year": `${pageRoot}programs/1st-year/`,
+        "2nd-year": `${pageRoot}programs/2nd-year/`,
+        "3rd-year": `${pageRoot}programs/3rd-year/`,
+        "4th-year": `${pageRoot}programs/4th-year/`,
 
-        private: `${baseURL}html/private.html`,
-        danie: `${baseURL}html/danie.html`,
-        settings: `${baseURL}html/settings.html`
+        private: `${pageRoot}private.html`,
+        danie: `${pageRoot}danie.html`,
+        settings: `${pageRoot}settings.html`
     };
 
     const sidebar = document.getElementById("sidebar");
 
     if (!sidebar) return;
 
-    const sidebarLinks = sidebar.querySelectorAll("a");
-
-    sidebarLinks.forEach(function (link) {
+    sidebar.querySelectorAll("a").forEach(function (link) {
 
         const href = link.getAttribute("href");
 

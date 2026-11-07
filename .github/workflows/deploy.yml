@@ -44,6 +44,8 @@ jobs:
         run: |
           cp -r dist/html/* dist/
           rm -rf dist/html
+          mkdir -p dist/components
+          cp html/components/sidebar.html dist/components/sidebar.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
