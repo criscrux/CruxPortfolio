@@ -1,5 +1,4 @@
-
-import { supabase } from "./supabase.js";
+﻿import { supabase } from "./supabase.js";
 
 const googleLogin = document.getElementById("googleLogin");
 const loginMessage = document.getElementById("loginMessage");
@@ -13,7 +12,7 @@ googleLogin?.addEventListener("click", async function () {
 
     const redirectUrl = isLocal
         ? `${window.location.origin}/html/index.html`
-        : `${window.location.origin}/CruxPortfolio/html/index.html`;
+        : `${window.location.origin}/CruxPortfolio/`;
 
     const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
