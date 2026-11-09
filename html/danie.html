@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,31 +14,32 @@
 
 <body class="her-page-body">
 
-    <!-- ========================================
-         SHARED SIDEBAR
-    ======================================== -->
-
     <div id="sidebar-container"></div>
 
-
-    <!-- ========================================
-         ANIMATED FLOWER BACKGROUND
-    ======================================== -->
-
     <div class="flower-background" aria-hidden="true">
-
         <iframe
             src="./flower.html"
             title="Animated flowers"
             tabindex="-1"
         ></iframe>
-
     </div>
 
-
-    <!-- ========================================
-         PINK TRANSITION EFFECT
-    ======================================== -->
+    <div class="page-backdrop" aria-hidden="true">
+        <div class="bg"></div>
+        <div class="stars"></div>
+        <div class="floaters">
+            <i class="fh" style="--l:6%;--s:14px;--d:17s;--dl:-2s;--dx:30px;--hc:#c084fc"></i>
+            <i class="fh" style="--l:16%;--s:10px;--d:21s;--dl:-9s;--dx:-24px;--hc:#f0abfc"></i>
+            <i class="fh" style="--l:27%;--s:18px;--d:19s;--dl:-5s;--dx:40px;--hc:#a78bfa"></i>
+            <i class="fh" style="--l:38%;--s:11px;--d:23s;--dl:-13s;--dx:-30px;--hc:#f472b6"></i>
+            <i class="fh" style="--l:49%;--s:15px;--d:18s;--dl:-7s;--dx:26px;--hc:#c4b5fd"></i>
+            <i class="fh" style="--l:60%;--s:12px;--d:22s;--dl:-16s;--dx:-36px;--hc:#e879f9"></i>
+            <i class="fh" style="--l:71%;--s:20px;--d:20s;--dl:-3s;--dx:34px;--hc:#a78bfa"></i>
+            <i class="fh" style="--l:82%;--s:10px;--d:24s;--dl:-11s;--dx:-22px;--hc:#f9a8d4"></i>
+            <i class="fh" style="--l:90%;--s:16px;--d:16s;--dl:-6s;--dx:-30px;--hc:#c084fc"></i>
+            <i class="fh" style="--l:94%;--s:12px;--d:25s;--dl:-18s;--dx:20px;--hc:#f0abfc"></i>
+        </div>
+    </div>
 
     <div
         class="transition-circle"
@@ -47,23 +47,11 @@
         aria-hidden="true"
     ></div>
 
-
-    <!-- ========================================
-         ACCESS VERIFICATION MESSAGE
-    ======================================== -->
-
     <div class="access-message" id="accessMessage">
         Checking access...
     </div>
 
-
-    <!-- ========================================
-         MAIN PAGE
-    ======================================== -->
-
     <main class="her-page" id="herPage" hidden>
-
-        <!-- FLOWER OPENING PAGE -->
 
         <section class="opening-screen" id="openingScreen">
 
@@ -89,25 +77,24 @@
 
         </section>
 
-
-        <!-- ========================================
-             FIRST ANNIVERSARY PAGE
-        ======================================== -->
-
         <section
-            class="intro-screen"
-            id="introScreen"
+            class="page-screen intro-screen"
+            id="page1Screen"
             aria-live="polite"
             hidden
         >
 
-            <div class="intro-content">
+            <div class="page-content intro-content">
+
+                <p class="page-eyebrow">
+                    PAGE 1
+                </p>
 
                 <h1>
                     Happy 1st Anniversary Bubby
                 </h1>
 
-                <p class="intro-message">
+                <p class="page-message">
                     I made this just for you.
                 </p>
 
@@ -115,25 +102,24 @@
 
         </section>
 
-
-        <!-- ========================================
-             SECOND PAGE
-        ======================================== -->
-
         <section
-            class="next-screen"
-            id="nextScreen"
+            class="page-screen"
+            id="page2Screen"
             aria-live="polite"
             hidden
         >
 
-            <div class="next-content">
+            <div class="page-content">
+
+                <p class="page-eyebrow">
+                    PAGE 2
+                </p>
 
                 <h1>
                     Our Story
                 </h1>
 
-                <p>
+                <p class="page-message">
                     A little more of us, one page at a time.
                 </p>
 
@@ -141,10 +127,80 @@
 
         </section>
 
+        <section
+            class="page-screen"
+            id="page3Screen"
+            aria-live="polite"
+            hidden
+        >
 
-        <!-- ========================================
-             PAGE NAVIGATION
-        ======================================== -->
+            <div class="page-content">
+
+                <p class="page-eyebrow">
+                    PAGE 3
+                </p>
+
+                <h1>
+                    A Special Page
+                </h1>
+
+                <p class="page-message">
+                    Your text goes here.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section
+            class="page-screen"
+            id="page4Screen"
+            aria-live="polite"
+            hidden
+        >
+
+            <div class="page-content">
+
+                <p class="page-eyebrow">
+                    PAGE 4
+                </p>
+
+                <h1>
+                    Another Memory
+                </h1>
+
+                <p class="page-message">
+                    Your text goes here.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section
+            class="page-screen"
+            id="page5Screen"
+            aria-live="polite"
+            hidden
+        >
+
+            <div class="page-content">
+
+                <p class="page-eyebrow">
+                    PAGE 5
+                </p>
+
+                <h1>
+                    To Be Continued
+                </h1>
+
+                <p class="page-message">
+                    Your text goes here.
+                </p>
+
+            </div>
+
+        </section>
 
         <nav
             class="page-navigation"
@@ -173,11 +229,6 @@
 
         </nav>
 
-
-        <!-- ========================================
-             FULL-SCREEN BOOK PAGE TURN
-        ======================================== -->
-
         <div
             class="page-turn-overlay"
             id="pageTurnOverlay"
@@ -202,11 +253,6 @@
         </div>
 
     </main>
-
-
-    <!-- ========================================
-         SCRIPTS
-    ======================================== -->
 
     <script type="module" src="../js/sidebar.js"></script>
     <script type="module" src="../js/danie.js"></script>

@@ -1,16 +1,11 @@
 
 import { supabase } from "./supabase.js";
 
-/* ========================================
-   ELEMENTS
-======================================== */
-
 const page = document.getElementById("herPage");
 const accessMessage = document.getElementById("accessMessage");
 
+const openingScreen = document.getElementById("openingScreen");
 const startButton = document.getElementById("startButton");
-const introScreen = document.getElementById("introScreen");
-const nextScreen = document.getElementById("nextScreen");
 
 const pageNavigation = document.getElementById("pageNavigation");
 const backButton = document.getElementById("backButton");
@@ -19,54 +14,24 @@ const nextButton = document.getElementById("nextButton");
 const pageTurnOverlay = document.getElementById("pageTurnOverlay");
 const pageTurnSheet = document.getElementById("pageTurnSheet");
 const pageTurnFront = document.getElementById("pageTurnFront");
+const pageTurnBack = pageTurnSheet.querySelector(".page-turn-back");
 
-let currentPage = "flower";
+const pages = [
+    document.getElementById("page1Screen"),
+    document.getElementById("page2Screen"),
+    document.getElementById("page3Screen"),
+    document.getElementById("page4Screen"),
+    document.getElementById("page5Screen")
+];
+
+let currentPage = -1;
 let isAnimating = false;
+let turnFallback = null;
 
-// Keep navigation hidden until the intro page is revealed.
 pageNavigation.hidden = true;
 
-/* ========================================
-   TEXT AND NAVIGATION FADE-IN
-======================================== */
 
-function playTextFadeIn(screen) {
-    const content = screen.querySelector(
-        ".intro-content, .next-content"
-    );
-
-    if (!content) return;
-
-    // Reset the text animation.
-    content.style.animation = "none";
-    content.style.opacity = "0";
-    content.style.transform = "translateY(25px)";
-    content.style.filter = "blur(5px)";
-
-    // Prepare navigation for the same animation.
-    pageNavigation.hidden = false;
-
-    pageNavigation.classList.remove("is-turning");
-    pageNavigation.style.animation = "none";
-    pageNavigation.style.opacity = "0";
-    pageNavigation.style.transform = "translateY(25px)";
-    pageNavigation.style.filter = "blur(5px)";
-
-    // Force the browser to apply the resets.
-    void content.offsetWidth;
-    void pageNavigation.offsetWidth;
-
-    // Start both animations together.
-    const fadeAnimation =
-        "page-text-appear 1.2s ease 0.25s 1 both";
-
-    content.style.animation = fadeAnimation;
-    pageNavigation.style.animation = fadeAnimation;
-}
-
-/* ========================================
-   CHECK ACCESS
-======================================== */
+/* ACCESS VERIFICATION */
 
 async function checkAccess() {
     try {
@@ -102,18 +67,82 @@ async function checkAccess() {
         page.hidden = false;
         accessMessage.textContent = "";
 
+        /* OPEN PAGE 5 WHEN RETURNING FROM CAKE */
+
+        const requestedPage = new URLSearchParams(
+            window.location.search
+        ).get("page");
+
+        if (requestedPage === "5") {
+            openingScreen.hidden = true;
+
+            pages.forEach((screen, index) => {
+                screen.hidden = index !== 4;
+            });
+
+            currentPage = 4;
+
+            document.body.classList.add("intro-revealed");
+            document.body.classList.remove(
+                "is-transitioning",
+                "flower-fade-in"
+            );
+
+            playPageFadeIn(pages[4]);
+        }
+
     } catch (error) {
         console.error("Her Page access check failed:", error);
         window.location.replace("./index.html");
     }
 }
 
-/* ========================================
-   START TRANSITION
-======================================== */
 
-startButton.addEventListener("click", function () {
-    if (isAnimating || currentPage !== "flower") return;
+/* FLOWER LOBBY */
+
+function returnToFlower() {
+    if (isAnimating || currentPage !== 0) return;
+
+    isAnimating = true;
+
+    pageNavigation.hidden = true;
+    pageNavigation.classList.remove("is-turning");
+    pageNavigation.style.animation = "none";
+    pageNavigation.style.opacity = "0";
+
+    const currentContent =
+        pages[currentPage].querySelector(".page-content");
+
+    if (currentContent) {
+        currentContent.style.animation = "none";
+        currentContent.style.opacity = "0";
+        currentContent.style.transform = "translateY(25px)";
+        currentContent.style.filter = "blur(5px)";
+    }
+
+    pages[currentPage].hidden = true;
+
+    document.body.classList.remove(
+        "intro-revealed",
+        "is-transitioning"
+    );
+
+    document.body.classList.add("flower-fade-in");
+
+    window.setTimeout(() => {
+        currentPage = -1;
+
+        startButton.disabled = false;
+
+        document.body.classList.remove("flower-fade-in");
+
+        isAnimating = false;
+    }, 1350);
+}
+
+
+startButton.addEventListener("click", () => {
+    if (isAnimating || currentPage !== -1) return;
 
     isAnimating = true;
 
@@ -129,188 +158,200 @@ startButton.addEventListener("click", function () {
 
     document.body.classList.add("is-transitioning");
 
-    window.setTimeout(function () {
-        introScreen.hidden = false;
+    window.setTimeout(() => {
+        pages[0].hidden = false;
 
         document.body.classList.add("intro-revealed");
         document.body.classList.remove("is-transitioning");
 
-        currentPage = "intro";
+        currentPage = 0;
 
-        // Fade in the text and navigation together.
-        playTextFadeIn(introScreen);
+        playPageFadeIn(pages[currentPage]);
 
         isAnimating = false;
-
     }, 1350);
 });
 
-/* ========================================
-   FULL PAGE TURN FUNCTION
-======================================== */
+
+/* PAGE FADE-IN */
+
+function playPageFadeIn(screen) {
+    const content = screen.querySelector(".page-content");
+
+    if (!content) return;
+
+    content.style.animation = "none";
+    content.style.opacity = "0";
+    content.style.transform = "translateY(25px)";
+    content.style.filter = "blur(5px)";
+
+    pageNavigation.hidden = false;
+
+    pageNavigation.classList.remove("is-turning");
+    pageNavigation.style.animation = "none";
+    pageNavigation.style.opacity = "0";
+    pageNavigation.style.transform = "translateY(25px)";
+    pageNavigation.style.filter = "blur(5px)";
+
+    backButton.hidden = false;
+    nextButton.hidden = false;
+
+    void content.offsetWidth;
+    void pageNavigation.offsetWidth;
+
+    const fadeAnimation =
+        "page-text-appear 0.7s ease 0.25s both";
+
+    content.style.animation = fadeAnimation;
+    pageNavigation.style.animation = fadeAnimation;
+}
+
+
+/* PAGE TURN */
+
+function copyPageContent(source, destination) {
+    destination.innerHTML = "";
+
+    const content = source.querySelector(".page-content");
+
+    if (!content) return;
+
+    const clone = content.cloneNode(true);
+
+    clone.style.animation = "none";
+    clone.style.opacity = "1";
+    clone.style.transform = "none";
+    clone.style.filter = "none";
+
+    destination.appendChild(clone);
+}
+
 
 function turnPage(source, destination, direction, callback) {
     if (isAnimating) return;
 
     isAnimating = true;
 
-    // Immediately hide navigation during the page turn.
     pageNavigation.classList.add("is-turning");
     pageNavigation.style.animation = "none";
     pageNavigation.style.opacity = "0";
     pageNavigation.style.transform = "translateY(25px)";
     pageNavigation.style.filter = "blur(5px)";
 
-    // Prepare the destination underneath the turning sheet.
+    copyPageContent(source, pageTurnFront);
+    copyPageContent(destination, pageTurnBack);
+
     destination.hidden = false;
 
-    // Hide both pages' text during the page-turn animation.
     source.classList.add("page-turning");
     destination.classList.add("page-turning");
 
-    // Keep the turning sheet completely blank.
-    pageTurnFront.innerHTML = "";
-
-    // Reset the sheet before starting.
     pageTurnSheet.className = "page-turn-sheet";
-
     pageTurnOverlay.hidden = false;
 
-    // Force the browser to apply the reset.
     void pageTurnSheet.offsetWidth;
 
-    // Start the page-turn animation.
+    const animationName = direction === "forward"
+        ? "full-page-turn-forward"
+        : "full-page-turn-backward";
+
     pageTurnSheet.classList.add(
         direction === "forward"
             ? "turn-forward"
             : "turn-backward"
     );
 
-    function handleTurn(event) {
-        if (event.target !== pageTurnSheet) return;
+    let turnFinished = false;
+
+    function finishTurn() {
+        if (turnFinished) return;
+
+        turnFinished = true;
 
         pageTurnSheet.removeEventListener(
             "animationend",
             handleTurn
         );
 
-        // Hide the page we are leaving.
+        if (turnFallback !== null) {
+            window.clearTimeout(turnFallback);
+            turnFallback = null;
+        }
+
         source.classList.remove("page-turning");
         source.hidden = true;
 
-        // Reveal the destination page.
         destination.classList.remove("page-turning");
 
-        // Hide and reset the turning sheet.
         pageTurnOverlay.hidden = true;
 
         pageTurnSheet.className = "page-turn-sheet";
         pageTurnFront.innerHTML = "";
+        pageTurnBack.innerHTML = "";
 
-        // Update the current page and button visibility.
         callback();
 
-        // Fade in the destination text and navigation together.
-        playTextFadeIn(destination);
+        playPageFadeIn(destination);
 
         isAnimating = false;
+    }
+
+    function handleTurn(event) {
+        if (
+            event.target !== pageTurnSheet ||
+            event.animationName !== animationName
+        ) {
+            return;
+        }
+
+        finishTurn();
     }
 
     pageTurnSheet.addEventListener("animationend", handleTurn);
+
+    turnFallback = window.setTimeout(finishTurn, 1800);
 }
 
-/* ========================================
-   NEXT PAGE
-======================================== */
 
-nextButton.addEventListener("click", function () {
-    if (isAnimating || currentPage !== "intro") return;
+/* PAGE NAVIGATION */
 
-    turnPage(
-        introScreen,
-        nextScreen,
-        "forward",
-        function () {
-            currentPage = "next";
+function goToNextPage() {
+    if (isAnimating || currentPage < 0) return;
 
-            // Only the Back button is needed on the second page.
-            nextButton.hidden = true;
-        }
-    );
-});
-
-/* ========================================
-   BACK BUTTON
-======================================== */
-
-backButton.addEventListener("click", function () {
-    if (isAnimating) return;
-
-    if (currentPage === "next") {
-        returnToIntro();
-    } else if (currentPage === "intro") {
-        returnToFlower();
+    if (currentPage >= pages.length - 1) {
+        window.location.href = "./cake.html";
+        return;
     }
-});
 
-/* ========================================
-   RETURN TO INTRO PAGE
-======================================== */
+    const source = pages[currentPage];
+    const destination = pages[currentPage + 1];
 
-function returnToIntro() {
-    turnPage(
-        nextScreen,
-        introScreen,
-        "backward",
-        function () {
-            currentPage = "intro";
-
-            // Restore the Next button.
-            nextButton.hidden = false;
-        }
-    );
+    turnPage(source, destination, "forward", () => {
+        currentPage++;
+    });
 }
 
-/* ========================================
-   RETURN TO FLOWER PAGE
-======================================== */
 
-function returnToFlower() {
-    if (isAnimating) return;
+function goToPreviousPage() {
+    if (isAnimating || currentPage < 0) return;
 
-    isAnimating = true;
+    if (currentPage === 0) {
+        returnToFlower();
+        return;
+    }
 
-    // Completely hide the navigation.
-    pageNavigation.hidden = true;
-    pageNavigation.classList.remove("is-turning");
+    const source = pages[currentPage];
+    const destination = pages[currentPage - 1];
 
-    // Reset its animation for the next opening.
-    pageNavigation.style.animation = "none";
-    pageNavigation.style.opacity = "0";
-    pageNavigation.style.transform = "translateY(25px)";
-    pageNavigation.style.filter = "blur(5px)";
-
-    document.body.classList.add("is-returning");
-
-    window.setTimeout(function () {
-        document.body.classList.remove(
-            "intro-revealed",
-            "is-returning",
-            "is-transitioning"
-        );
-
-        introScreen.hidden = true;
-
-        startButton.disabled = false;
-
-        currentPage = "flower";
-        isAnimating = false;
-
-    }, 1350);
+    turnPage(source, destination, "backward", () => {
+        currentPage--;
+    });
 }
 
-/* ========================================
-   START PAGE
-======================================== */
+
+/* INITIALIZATION */
+
+nextButton.addEventListener("click", goToNextPage);
+backButton.addEventListener("click", goToPreviousPage);
 
 checkAccess();

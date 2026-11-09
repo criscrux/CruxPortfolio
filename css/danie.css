@@ -1,6 +1,5 @@
-
 /* ========================================
-   HER PAGE
+   GLOBAL
 ======================================== */
 
 .her-page-body {
@@ -21,6 +20,39 @@
 .her-page-body .site-main {
     display: none;
 }
+
+.her-page {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.her-page[hidden],
+.page-screen[hidden],
+.page-navigation[hidden] {
+    display: none !important;
+}
+
+.access-message {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.her-page-body.authorized .access-message {
+    display: none;
+}
+
 
 /* ========================================
    FLOWER BACKGROUND
@@ -45,32 +77,151 @@
     pointer-events: none;
 }
 
+/* Hide the flower immediately when Start is clicked */
+
+.her-page-body.is-transitioning .flower-background,
 .her-page-body.intro-revealed .flower-background {
     opacity: 0;
+    transition: none;
 }
+
 
 /* ========================================
-   PAGE CONTENT
+   PAGE BACKDROP
 ======================================== */
 
-.her-page {
-    position: relative;
-    z-index: 1;
+.page-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.her-page-body.intro-revealed .page-backdrop {
+    opacity: 1;
+}
+
+.page-backdrop .bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 90% at 50% 32%,
+            #9061f9 0,
+            #5b21b6 45%,
+            #2e1065 100%);
+}
+
+.page-backdrop .stars,
+.page-backdrop .stars::after {
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+    animation: danie-twinkle 5s ease-in-out infinite alternate;
+}
+
+.page-backdrop .stars {
+    opacity: .3;
+    background-image:
+        radial-gradient(2px 2px at 30px 40px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 120px 90px, #e9d5ff, transparent),
+        radial-gradient(2.2px 2.2px at 210px 30px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 300px 150px, #fff, transparent),
+        radial-gradient(2px 2px at 70px 210px, #ddd6fe, transparent),
+        radial-gradient(1.5px 1.5px at 180px 260px, #fff, transparent),
+        radial-gradient(2.2px 2.2px at 320px 300px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 250px 220px, #f5d0fe, transparent);
+    background-size: 360px 340px;
+}
+
+.page-backdrop .stars::after {
+    content: "";
+    animation-duration: 7s;
+    animation-delay: -2s;
+    background-image:
+        radial-gradient(2px 2px at 60px 70px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 170px 30px, #f5d0fe, transparent),
+        radial-gradient(2px 2px at 230px 140px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 40px 200px, #fff, transparent),
+        radial-gradient(2.2px 2.2px at 140px 240px, #e9d5ff, transparent);
+    background-size: 270px 290px;
+}
+
+@keyframes danie-twinkle {
+    from {
+        opacity: .35;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.page-backdrop .floaters {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.page-backdrop .fh {
+    position: absolute;
+    bottom: -40px;
+    left: var(--l);
+    width: var(--s);
+    height: var(--s);
+    background: var(--hc);
+    rotate: -45deg;
+    opacity: 0;
+    animation: danie-rise var(--d) linear var(--dl) infinite;
+}
+
+.page-backdrop .fh::before,
+.page-backdrop .fh::after {
+    content: "";
+    position: absolute;
     width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
 }
 
-.her-page[hidden],
-.intro-screen[hidden],
-.next-screen[hidden],
-.page-navigation[hidden] {
-    display: none !important;
+.page-backdrop .fh::before {
+    top: -50%;
+    left: 0;
 }
 
-.opening-screen,
-.intro-screen,
-.next-screen {
+.page-backdrop .fh::after {
+    left: 50%;
+    top: 0;
+}
+
+@keyframes danie-rise {
+    0% {
+        translate: 0 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .5;
+    }
+
+    90% {
+        opacity: .3;
+    }
+
+    100% {
+        translate: var(--dx) -115vh;
+        opacity: 0;
+    }
+}
+
+
+/* ========================================
+   FLOWER LOBBY
+======================================== */
+
+.opening-screen {
     position: relative;
     display: flex;
     align-items: center;
@@ -111,10 +262,6 @@
     letter-spacing: 0.12em;
 }
 
-/* ========================================
-   START BUTTON
-======================================== */
-
 .her-page-body .start-button {
     min-width: 140px;
     cursor: pointer;
@@ -128,26 +275,37 @@
     outline-offset: 5px;
 }
 
+.her-page-body .start-button:disabled {
+    cursor: not-allowed;
+}
+
 .her-page-body.is-transitioning .opening-content {
     opacity: 0;
     transform: translateY(-12px);
     pointer-events: none;
 }
 
+.her-page-body.intro-revealed .opening-screen {
+    display: none;
+}
+
+
 /* ========================================
-   PINK CIRCLE TRANSITION
+   START TRANSITION
 ======================================== */
 
 .transition-circle {
     position: fixed;
     inset: 0;
     z-index: 5;
-    background: var(--anniversary-pink);
+    opacity: 0;
+    background: #2e1065;
     clip-path: circle(0 at var(--circle-x, 50%) var(--circle-y, 50%));
     pointer-events: none;
 }
 
 .her-page-body.is-transitioning .transition-circle {
+    opacity: 1;
     animation: pink-circle-expand 1.35s cubic-bezier(0.7, 0, 0.2, 1) forwards;
 }
 
@@ -161,59 +319,46 @@
     }
 }
 
-/* Reverse the original circle animation when returning */
-
-.her-page-body.is-returning .transition-circle {
-    opacity: 1;
-    animation: pink-circle-expand 1.35s cubic-bezier(0.7, 0, 0.2, 1) reverse forwards;
-}
-
-/* Hide the circle after the intro is revealed */
-
-.her-page-body.intro-revealed:not(.is-returning) .transition-circle {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
 
 /* ========================================
-   FIRST ANNIVERSARY PAGE
+   PAGE LAYOUT
 ======================================== */
 
-.intro-screen {
+.page-screen {
     position: fixed;
     inset: 0;
     z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 32px 20px;
+    box-sizing: border-box;
     overflow-y: auto;
-    background: var(--anniversary-pink);
-    color: #252027;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-        opacity 0.8s ease,
-        visibility 0.8s ease;
+    background: transparent;
+    color: #fbf5ff;
+    text-align: center;
 }
 
-.her-page-body.intro-revealed .intro-screen {
-    opacity: 1;
-    visibility: visible;
-}
-
-.intro-content {
+.page-content {
     width: min(100%, 760px);
     padding: 24px;
     box-sizing: border-box;
     opacity: 0;
     transform: translateY(25px);
+    filter: blur(5px);
 }
 
-.intro-eyebrow {
+.page-eyebrow {
     margin: 0 0 18px;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.22em;
 }
 
-.intro-content h1 {
+.page-content h1 {
     margin: 0;
     font-size: clamp(2.1rem, 7vw, 4.8rem);
     font-weight: 800;
@@ -221,57 +366,20 @@
     letter-spacing: -0.04em;
 }
 
-.intro-message {
+.page-message {
     margin: 22px 0 0;
     font-size: clamp(1rem, 3vw, 1.25rem);
     line-height: 1.7;
 }
 
-/* ========================================
-   SECOND PAGE
-======================================== */
-
-.next-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 4;
-    overflow-y: auto;
-    background: var(--anniversary-pink);
-    color: #252027;
+.page-turning .page-content {
+    visibility: hidden;
 }
 
-.next-content {
-    width: min(100%, 760px);
-    padding: 24px;
-    box-sizing: border-box;
-    opacity: 0;
-    transform: translateY(25px);
-}
-
-.next-content h1 {
-    margin: 0;
-    font-size: clamp(2.1rem, 7vw, 4.8rem);
-    font-weight: 800;
-    line-height: 1.12;
-    letter-spacing: -0.04em;
-}
-
-.next-content p {
-    margin: 22px 0 0;
-    font-size: clamp(1rem, 3vw, 1.25rem);
-    line-height: 1.7;
-}
 
 /* ========================================
-   PAGE TEXT FADE-IN
+   PAGE FADE-IN
 ======================================== */
-
-.intro-content,
-.next-content {
-    opacity: 0;
-    transform: translateY(25px);
-    filter: blur(5px);
-}
 
 @keyframes page-text-appear {
     from {
@@ -287,12 +395,11 @@
     }
 }
 
-/* Hide page text while the page is turning */
-
-.intro-screen.page-turning .intro-content,
-.next-screen.page-turning .next-content {
-    visibility: hidden;
+.her-page-body.flower-fade-in .her-page {
+    animation: page-text-appear 0.7s ease 0.25s both;
 }
+
+
 
 /* ========================================
    FULL-SCREEN BOOK PAGE TURN
@@ -303,6 +410,7 @@
     inset: 0;
     z-index: 8;
     perspective: 2200px;
+    -webkit-perspective: 2200px;
     pointer-events: none;
     overflow: hidden;
 }
@@ -315,8 +423,11 @@
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     backface-visibility: hidden;
-    background: var(--anniversary-pink);
+    -webkit-backface-visibility: hidden;
+    background: #2e1065;
+    will-change: transform;
 }
 
 .page-turn-face {
@@ -328,25 +439,32 @@
     padding: 32px 20px;
     box-sizing: border-box;
     overflow: hidden;
-    background: var(--anniversary-pink);
-    color: #252027;
+    background: #2e1065;
+    color: transparent;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
+
+/* Keep the turning sheet blank */
+
+.page-turn-face>* {
+    visibility: hidden !important;
+}
+
+/* Front of the page */
 
 .page-turn-front {
     transform: rotateY(0deg);
 
-    /* Curved-looking shading along the page */
-
     background:
         linear-gradient(90deg,
-            #FCEFF3 0%,
-            #FCEFF3 65%,
-            #f8e6ec 85%,
-            #e9d3dc 100%);
+            #5b21b6 0%,
+            #5b21b6 65%,
+            #4c1d95 85%,
+            #2e1065 100%);
 
     box-shadow:
-        inset -25px 0 40px rgb(60 30 45 / 12%);
+        inset -25px 0 40px rgb(0 0 0 / 20%);
 }
 
 .page-turn-front::before {
@@ -358,9 +476,9 @@
     background:
         linear-gradient(90deg,
             transparent 65%,
-            rgb(255 255 255 / 8%) 78%,
-            rgb(255 255 255 / 45%) 92%,
-            rgb(70 35 50 / 18%) 100%);
+            rgb(255 255 255 / 5%) 78%,
+            rgb(255 255 255 / 20%) 92%,
+            rgb(0 0 0 / 18%) 100%);
 
     opacity: 0.9;
 }
@@ -377,20 +495,22 @@
     background:
         linear-gradient(90deg,
             transparent,
-            rgb(80 40 55 / 10%),
-            rgb(255 255 255 / 35%));
+            rgb(0 0 0 / 10%),
+            rgb(255 255 255 / 15%));
 
     filter: blur(8px);
 }
+
+/* Back of the page */
 
 .page-turn-back {
     transform: rotateY(180deg);
 
     background:
         linear-gradient(90deg,
-            #f8e8ee,
-            #fceff3 50%,
-            #ead5de);
+            #2e1065,
+            #4c1d95 50%,
+            #5b21b6);
 }
 
 /* ========================================
@@ -399,13 +519,10 @@
 
 .page-turn-sheet.turn-forward {
     transform-origin: left center;
-
-    animation:
-        full-page-turn-forward 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: full-page-turn-forward 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 @keyframes full-page-turn-forward {
-
     0% {
         transform: rotateY(0deg) skewY(0deg);
         box-shadow: 0 0 0 rgb(0 0 0 / 0%);
@@ -435,13 +552,10 @@
 
 .page-turn-sheet.turn-backward {
     transform-origin: right center;
-
-    animation:
-        full-page-turn-backward 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: full-page-turn-backward 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 @keyframes full-page-turn-backward {
-
     0% {
         transform: rotateY(0deg) skewY(0deg);
         box-shadow: 0 0 0 rgb(0 0 0 / 0%);
@@ -465,6 +579,12 @@
     }
 }
 
+/* Do not show the book page-turn overlay during Start */
+
+.her-page-body.is-transitioning .page-turn-overlay {
+    display: none !important;
+}
+
 /* ========================================
    PAGE NAVIGATION
 ======================================== */
@@ -475,66 +595,55 @@
     bottom: 0;
     left: 0;
     z-index: 20;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     width: 100%;
     padding: 24px 28px;
     box-sizing: border-box;
-
     opacity: 0;
     transform: translateY(25px);
     filter: blur(5px);
 }
 
-/* Keep navigation hidden until JavaScript reveals it */
-
 .page-navigation[hidden] {
     display: none !important;
 }
-
-/* Hide navigation during page turning */
 
 .page-navigation.is-turning {
     opacity: 0 !important;
     pointer-events: none;
 }
 
-/* Navigation buttons */
-
 .page-nav-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     min-width: 105px;
     padding: 12px 20px;
-
-    border: 1px solid rgb(37 32 39 / 18%);
+    border: 1px solid rgb(255 255 255 / 25%);
     border-radius: 30px;
-
-    background: rgb(255 255 255 / 65%);
-    color: #252027;
-
+    background: rgb(255 255 255 / 12%);
+    color: #fbf5ff;
     font: inherit;
     font-size: 0.95rem;
     font-weight: 700;
-
     cursor: pointer;
-
     transition:
         background 0.25s ease,
         transform 0.25s ease,
         box-shadow 0.25s ease;
 }
 
+.page-nav-button[hidden] {
+    display: none !important;
+}
+
 .page-nav-button:hover {
-    background: #fff;
+    background: rgb(255 255 255 / 25%);
     transform: translateY(-3px);
-    box-shadow: 0 5px 18px rgb(37 32 39 / 10%);
+    box-shadow: 0 5px 18px rgb(0 0 0 / 25%);
 }
 
 .page-nav-button:active {
@@ -542,7 +651,7 @@
 }
 
 .page-nav-button:focus-visible {
-    outline: 3px solid #252027;
+    outline: 3px solid #fcd34d;
     outline-offset: 4px;
 }
 
@@ -551,37 +660,15 @@
     line-height: 1;
 }
 
-/* ========================================
-   ACCESS CHECK
-======================================== */
-
-.access-message {
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: #000;
-    color: #fff;
-    text-align: center;
-    font-size: 0.95rem;
-}
-
-.her-page-body.authorized .access-message {
-    display: none;
-}
 
 /* ========================================
-   MOBILE
+   RESPONSIVE
 ======================================== */
 
 @media (max-width: 480px) {
 
     .opening-screen,
-    .intro-screen,
-    .next-screen {
+    .page-screen {
         padding: 24px 18px;
     }
 
@@ -605,6 +692,7 @@
     }
 }
 
+
 /* ========================================
    REDUCED MOTION
 ======================================== */
@@ -613,14 +701,11 @@
 
     .flower-background,
     .opening-content,
-    .intro-screen,
-    .intro-content,
-    .next-screen {
+    .page-screen {
         transition-duration: 0.01ms;
     }
 
-    .her-page-body.is-transitioning .transition-circle,
-    .her-page-body.is-returning .transition-circle {
+    .her-page-body.is-transitioning .transition-circle {
         animation-duration: 0.01ms;
     }
 
@@ -628,10 +713,20 @@
     .page-turn-sheet.turn-backward {
         animation-duration: 0.01ms;
     }
+
+    .page-backdrop .stars,
+    .page-backdrop .stars::after {
+        animation: none;
+    }
+
+    .page-backdrop .fh {
+        display: none;
+    }
 }
 
+
 /* ========================================
-   DANIE PAGE SIDEBAR CONTROLS
+   SIDEBAR CONTROLS
 ======================================== */
 
 .her-page-body .mobile-menu-button {
@@ -639,20 +734,15 @@
     top: 18px;
     left: 18px;
     z-index: 1002;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 44px;
     height: 44px;
-
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
-
     background: rgba(13, 17, 26, 0.95);
     color: #fff;
-
     font-size: 22px;
     cursor: pointer;
 }
@@ -661,14 +751,10 @@
     position: fixed;
     inset: 0;
     z-index: 999;
-
     display: block;
-
     background: rgba(0, 0, 0, 0.55);
-
     opacity: 0;
     visibility: hidden;
-
     transition:
         opacity 0.35s ease,
         visibility 0.35s ease;
