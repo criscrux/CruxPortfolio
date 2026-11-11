@@ -1,6 +1,5 @@
-/* ========================================
-   GLOBAL
-======================================== */
+
+/* GLOBAL */
 
 .her-page-body {
     --anniversary-pink: #FCEFF3;
@@ -54,9 +53,7 @@
 }
 
 
-/* ========================================
-   FLOWER BACKGROUND
-======================================== */
+/* FLOWER BACKGROUND */
 
 .flower-background {
     position: fixed;
@@ -77,8 +74,6 @@
     pointer-events: none;
 }
 
-/* Hide the flower immediately when Start is clicked */
-
 .her-page-body.is-transitioning .flower-background,
 .her-page-body.intro-revealed .flower-background {
     opacity: 0;
@@ -86,9 +81,7 @@
 }
 
 
-/* ========================================
-   PAGE BACKDROP
-======================================== */
+/* PAGE BACKDROP */
 
 .page-backdrop {
     position: fixed;
@@ -107,10 +100,12 @@
 .page-backdrop .bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(120% 90% at 50% 32%,
-            #9061f9 0,
-            #5b21b6 45%,
-            #2e1065 100%);
+    background: radial-gradient(
+        120% 90% at 50% 32%,
+        #9061f9 0,
+        #5b21b6 45%,
+        #2e1065 100%
+    );
 }
 
 .page-backdrop .stars,
@@ -122,7 +117,7 @@
 }
 
 .page-backdrop .stars {
-    opacity: .3;
+    opacity: 0.3;
     background-image:
         radial-gradient(2px 2px at 30px 40px, #fff, transparent),
         radial-gradient(1.5px 1.5px at 120px 90px, #e9d5ff, transparent),
@@ -150,7 +145,7 @@
 
 @keyframes danie-twinkle {
     from {
-        opacity: .35;
+        opacity: 0.35;
     }
 
     to {
@@ -203,11 +198,11 @@
     }
 
     10% {
-        opacity: .5;
+        opacity: 0.5;
     }
 
     90% {
-        opacity: .3;
+        opacity: 0.3;
     }
 
     100% {
@@ -217,9 +212,7 @@
 }
 
 
-/* ========================================
-   FLOWER LOBBY
-======================================== */
+/* OPENING SCREEN */
 
 .opening-screen {
     position: relative;
@@ -252,6 +245,7 @@
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
     text-shadow: 0 0 22px rgb(255 255 255 / 12%);
 }
 
@@ -290,9 +284,7 @@
 }
 
 
-/* ========================================
-   START TRANSITION
-======================================== */
+/* START TRANSITION */
 
 .transition-circle {
     position: fixed;
@@ -320,9 +312,7 @@
 }
 
 
-/* ========================================
-   PAGE LAYOUT
-======================================== */
+/* PAGE LAYOUT */
 
 .page-screen {
     position: fixed;
@@ -334,9 +324,11 @@
     width: 100%;
     min-height: 100vh;
     min-height: 100dvh;
-    padding: 32px 20px;
+    padding: 32px 20px 120px;
     box-sizing: border-box;
+    overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior-y: contain;
     background: transparent;
     color: #fbf5ff;
     text-align: center;
@@ -344,8 +336,11 @@
 
 .page-content {
     width: min(100%, 760px);
-    padding: 24px;
+    min-width: 0;
+    margin: auto;
+    padding: clamp(16px, 4vw, 24px);
     box-sizing: border-box;
+    overflow-wrap: anywhere;
     opacity: 0;
     transform: translateY(25px);
     filter: blur(5px);
@@ -359,27 +354,41 @@
 }
 
 .page-content h1 {
+    max-width: 100%;
     margin: 0;
-    font-size: clamp(2.1rem, 7vw, 4.8rem);
+    font-size: clamp(2rem, 7vw, 4.8rem);
     font-weight: 800;
     line-height: 1.12;
     letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
 }
 
 .page-message {
+    max-width: 100%;
     margin: 22px 0 0;
-    font-size: clamp(1rem, 3vw, 1.25rem);
+    font-size: clamp(0.95rem, 3vw, 1.25rem);
     line-height: 1.7;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
 .page-turning .page-content {
     visibility: hidden;
 }
 
+#page2Screen,
+#page4Screen {
+    padding-top: clamp(64px, 9vh, 100px);
+}
 
-/* ========================================
-   PAGE FADE-IN
-======================================== */
+#page2Screen .page-content,
+#page4Screen .page-content {
+    margin-top: 0;
+    margin-bottom: auto;
+}
+
+
+/* PAGE FADE-IN */
 
 @keyframes page-text-appear {
     from {
@@ -400,10 +409,7 @@
 }
 
 
-
-/* ========================================
-   FULL-SCREEN BOOK PAGE TURN
-======================================== */
+/* PAGE TURN OVERLAY */
 
 .page-turn-overlay {
     position: fixed;
@@ -445,26 +451,21 @@
     -webkit-backface-visibility: hidden;
 }
 
-/* Keep the turning sheet blank */
-
-.page-turn-face>* {
+.page-turn-face > * {
     visibility: hidden !important;
 }
 
-/* Front of the page */
-
 .page-turn-front {
     transform: rotateY(0deg);
-
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             #5b21b6 0%,
             #5b21b6 65%,
             #4c1d95 85%,
-            #2e1065 100%);
-
-    box-shadow:
-        inset -25px 0 40px rgb(0 0 0 / 20%);
+            #2e1065 100%
+        );
+    box-shadow: inset -25px 0 40px rgb(0 0 0 / 20%);
 }
 
 .page-turn-front::before {
@@ -472,14 +473,14 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             transparent 65%,
             rgb(255 255 255 / 5%) 78%,
             rgb(255 255 255 / 20%) 92%,
-            rgb(0 0 0 / 18%) 100%);
-
+            rgb(0 0 0 / 18%) 100%
+        );
     opacity: 0.9;
 }
 
@@ -491,31 +492,29 @@
     width: 15%;
     height: 100%;
     pointer-events: none;
-
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             transparent,
             rgb(0 0 0 / 10%),
-            rgb(255 255 255 / 15%));
-
+            rgb(255 255 255 / 15%)
+        );
     filter: blur(8px);
 }
 
-/* Back of the page */
-
 .page-turn-back {
     transform: rotateY(180deg);
-
     background:
-        linear-gradient(90deg,
+        linear-gradient(
+            90deg,
             #2e1065,
             #4c1d95 50%,
-            #5b21b6);
+            #5b21b6
+        );
 }
 
-/* ========================================
-   FORWARD PAGE TURN
-======================================== */
+
+/* FORWARD PAGE TURN */
 
 .page-turn-sheet.turn-forward {
     transform-origin: left center;
@@ -546,9 +545,8 @@
     }
 }
 
-/* ========================================
-   BACKWARD PAGE TURN
-======================================== */
+
+/* BACKWARD PAGE TURN */
 
 .page-turn-sheet.turn-backward {
     transform-origin: right center;
@@ -579,15 +577,12 @@
     }
 }
 
-/* Do not show the book page-turn overlay during Start */
-
 .her-page-body.is-transitioning .page-turn-overlay {
     display: none !important;
 }
 
-/* ========================================
-   PAGE NAVIGATION
-======================================== */
+
+/* PAGE NAVIGATION */
 
 .page-navigation {
     position: fixed;
@@ -661,20 +656,40 @@
 }
 
 
-/* ========================================
-   RESPONSIVE
-======================================== */
+/* RESPONSIVE */
 
 @media (max-width: 480px) {
-
-    .opening-screen,
-    .page-screen {
+    .opening-screen {
         padding: 24px 18px;
+    }
+
+    .page-screen {
+        padding-right: 14px;
+        padding-left: 14px;
+        padding-bottom: 110px;
+    }
+
+    .page-content {
+        padding: 16px 10px;
     }
 
     .opening-subtitle {
         margin-top: 12px;
         margin-bottom: 26px;
+    }
+
+    .page-content h1 {
+        font-size: clamp(1.9rem, 9vw, 3rem);
+    }
+
+    .page-message {
+        font-size: clamp(0.9rem, 4vw, 1.05rem);
+        line-height: 1.65;
+    }
+
+    #page2Screen,
+    #page4Screen {
+        padding-top: 72px;
     }
 
     .page-navigation {
@@ -692,13 +707,37 @@
     }
 }
 
+@media (max-height: 650px) {
+    .page-screen {
+        align-items: flex-start;
+        padding-top: 24px;
+        padding-bottom: 100px;
+    }
 
-/* ========================================
-   REDUCED MOTION
-======================================== */
+    #page2Screen,
+    #page4Screen {
+        padding-top: 56px;
+    }
+
+    .page-content {
+        margin-top: 0;
+        margin-bottom: auto;
+    }
+
+    .page-content h1 {
+        font-size: clamp(1.8rem, 6vw, 3.5rem);
+    }
+
+    .page-message {
+        margin-top: 16px;
+        line-height: 1.55;
+    }
+}
+
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
-
     .flower-background,
     .opening-content,
     .page-screen {
@@ -725,9 +764,7 @@
 }
 
 
-/* ========================================
-   SIDEBAR CONTROLS
-======================================== */
+/* SIDEBAR CONTROLS */
 
 .her-page-body .mobile-menu-button {
     position: fixed;

@@ -1,0 +1,1283 @@
+/* ==========================================================
+   RING.CSS
+   Anniversary Ring Box Page
+   ========================================================== */
+
+
+/* ==========================================================
+   1. PAGE SETTINGS
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+.ring-page {
+    --w: min(62vw, 46vh, 380px);
+    --d: var(--w);
+    --hb: calc(var(--w) * .34);
+    --hl: calc(var(--w) * .21);
+    --fd: calc(var(--hb) * .30);
+
+    --lid-ms: 1600ms;
+    --ring-in-ms: 1000ms;
+    --ring-delay-ms: 900ms;
+    --vanish-ms: 1600ms;
+
+    --gold: linear-gradient(135deg,
+            #754017 0%,
+            #bd7937 20%,
+            #ffe2a0 42%,
+            #c17b37 68%,
+            #f6d18b 86%,
+            #87501f 100%);
+
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    overscroll-behavior: none;
+    position: relative;
+    isolation: isolate;
+
+    font-family: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    color: #fff;
+
+    background:
+        radial-gradient(ellipse at 50% 48%,
+            #f7edff 0%,
+            #ddc4f6 30%,
+            #a77bd9 64%,
+            #542984 100%);
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+@supports (height: 100dvh) {
+    .ring-page {
+        height: 100dvh;
+        min-height: 100dvh;
+        --w: min(62vw, 46dvh, 380px);
+    }
+}
+
+
+/* ==========================================================
+   2. HYDRANGEA BACKGROUND
+   ========================================================== */
+
+.ring-flowers {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse at 15% 20%,
+            rgba(225, 197, 255, .55),
+            transparent 48%),
+        radial-gradient(ellipse at 85% 25%,
+            rgba(180, 133, 225, .45),
+            transparent 50%),
+        radial-gradient(ellipse at 45% 85%,
+            rgba(220, 188, 250, .45),
+            transparent 55%),
+        linear-gradient(135deg,
+            #684092,
+            #a77bd9 45%,
+            #7545a5);
+}
+
+.ring-flowers__layer {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.ring-flowers__layer--back {
+    filter: blur(2px) brightness(.78) saturate(.95);
+    transform: scale(1.04);
+    animation: rg-layer-sway 16s ease-in-out infinite alternate;
+}
+
+.ring-flowers__layer--mid {
+    filter: brightness(.94) saturate(1.08);
+}
+
+.ring-flowers__layer--front {
+    filter: brightness(1.03) saturate(1.12);
+}
+
+.rg-head {
+    position: absolute;
+    transform-origin: 50% 90%;
+
+    animation:
+        rg-sway var(--dur, 7s) ease-in-out var(--delay, 0s) infinite alternate;
+
+    will-change: transform;
+}
+
+.rg-head svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.ring-flowers__layer--back .rg-head {
+    animation: none;
+}
+
+.ring-page::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(ellipse 55% 55% at 50% 48%,
+            rgba(246, 232, 255, .30),
+            rgba(246, 232, 255, .08) 65%,
+            transparent 100%),
+        linear-gradient(180deg,
+            rgba(39, 13, 72, .10),
+            transparent 35%,
+            transparent 70%,
+            rgba(39, 13, 72, .16));
+}
+
+@keyframes rg-sway {
+    from {
+        transform:
+            rotate(calc(var(--sway, 3deg) * -1)) translateY(0);
+    }
+
+    to {
+        transform:
+            rotate(var(--sway, 3deg)) translateY(var(--bob, 6px));
+    }
+}
+
+@keyframes rg-layer-sway {
+    from {
+        transform: translateX(-7px) scale(1.04);
+    }
+
+    to {
+        transform: translateX(7px) scale(1.04);
+    }
+}
+
+
+/* ==========================================================
+   3. MAIN SCENE
+   ========================================================== */
+
+.ring-scene {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        max(env(safe-area-inset-top), 12px) max(env(safe-area-inset-right), 12px) max(env(safe-area-inset-bottom), 12px) max(env(safe-area-inset-left), 12px);
+
+    pointer-events: none;
+}
+
+.ring-stage {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: var(--w);
+    padding-top: calc(var(--w) * .18);
+
+    pointer-events: none;
+}
+
+/* Title */
+.ring-title {
+    position: relative;
+    z-index: 4;
+
+    width: 100%;
+    margin: 0 0 calc(var(--w) * .08);
+
+    text-align: center;
+
+    font-family: "Cormorant Garamond", "Palatino Linotype", Georgia, serif;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: .045em;
+
+    color: #fff9ff;
+
+    text-shadow:
+        0 2px 10px rgba(57, 20, 95, .65),
+        0 0 20px rgba(255, 225, 255, .35);
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+
+    pointer-events: none;
+}
+
+.ring-page.is-open .ring-title {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* Glow behind the box */
+.ring-aura {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+
+    width: calc(var(--w) * 2.05);
+    height: calc(var(--w) * 1.65);
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(ellipse,
+            rgba(255, 225, 255, .68),
+            rgba(204, 157, 255, .27) 48%,
+            transparent 72%);
+
+    filter: blur(5px);
+    opacity: .75;
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+
+    pointer-events: none;
+}
+
+.ring-page.is-open .ring-aura {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1.12);
+}
+
+/* Shadow beneath the box */
+.ring-shadow {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--w) * .98);
+
+    width: calc(var(--w) * 1.12);
+    height: calc(var(--w) * .24);
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(ellipse,
+            rgba(30, 8, 60, .58),
+            rgba(30, 8, 60, .16) 48%,
+            transparent 74%);
+
+    filter: blur(6px);
+    animation: rb-shadow 5s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes rb-shadow {
+
+    0%,
+    100% {
+        opacity: .9;
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        opacity: .62;
+        transform: translateX(-50%) scale(.88);
+    }
+}
+
+
+/* ==========================================================
+   4. RING BOX STRUCTURE
+   ========================================================== */
+
+.ring-box {
+    all: unset;
+
+    position: relative;
+    display: block;
+    flex: none;
+
+    width: var(--w);
+    height: calc(var(--w) * .95);
+
+    perspective: calc(var(--w) * 3.5);
+
+    cursor: pointer;
+    pointer-events: auto;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ring-box:disabled {
+    cursor: default;
+}
+
+.ring-box:focus-visible {
+    outline: 2px dashed #fff;
+    outline-offset: 9px;
+    border-radius: 20px;
+}
+
+.ring-box__float,
+.ring-box__tilt,
+.rb-base,
+.rb-lid,
+.rg-ring-wrap,
+.rg-ring-spin {
+    display: block;
+    transform-style: preserve-3d;
+}
+
+/* Floating animation */
+.ring-box__float {
+    position: absolute;
+    inset: 0;
+
+    animation: rb-float 4.8s ease-in-out infinite;
+}
+
+/* Box viewing angle */
+.ring-box__tilt {
+    position: absolute;
+    inset: 0;
+
+    transform: rotateX(-27deg) rotateY(-14deg);
+    transform-style: preserve-3d;
+
+    animation: rb-tilt 10s ease-in-out infinite alternate;
+}
+
+.ring-page.is-empty .ring-box__float {
+    animation: rb-float-calm 7s ease-in-out infinite;
+}
+
+.ring-page.is-empty .ring-shadow {
+    animation-duration: 7s;
+}
+
+@keyframes rb-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(calc(var(--w) * -.035));
+    }
+}
+
+@keyframes rb-float-calm {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(calc(var(--w) * -.02));
+    }
+}
+
+@keyframes rb-tilt {
+    from {
+        transform: rotateX(-27deg) rotateY(-18deg);
+    }
+
+    to {
+        transform: rotateX(-25deg) rotateY(-10deg);
+    }
+}
+
+/* Main box base */
+.rb-base {
+    position: absolute;
+    left: 0;
+    top: calc(var(--w) * .46);
+
+    width: var(--w);
+    height: var(--hb);
+
+    transform-style: preserve-3d;
+}
+
+/* Shared box face settings */
+.rb-face {
+    position: absolute;
+    display: block;
+
+    box-sizing: border-box;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* ==========================================================
+   5. OUTER BOX WALLS
+   ========================================================== */
+
+.rb-front,
+.rb-back {
+    left: 0;
+    top: 0;
+
+    width: var(--w);
+    height: var(--hb);
+
+    border-radius: 0 0 16px 16px;
+}
+
+.rb-left,
+.rb-right {
+    top: 0;
+
+    width: var(--d);
+    height: var(--hb);
+
+    left: calc((var(--w) - var(--d)) / 2);
+
+    border-radius: 0 0 16px 16px;
+}
+
+.rb-front {
+    transform: translateZ(calc(var(--d) / 2));
+}
+
+.rb-back {
+    transform:
+        rotateY(180deg) translateZ(calc(var(--d) / 2));
+}
+
+.rb-left {
+    transform:
+        rotateY(-90deg) translateZ(calc(var(--w) / 2));
+}
+
+.rb-right {
+    transform:
+        rotateY(90deg) translateZ(calc(var(--w) / 2));
+}
+
+.rb-bottom {
+    left: 2px;
+    top: calc((var(--hb) - var(--d)) / 2);
+
+    width: calc(var(--w) - 4px);
+    height: calc(var(--d) - 2px);
+
+    transform:
+        rotateX(-90deg) translateZ(calc(var(--hb) / 2));
+
+    border-radius: 0 0 12px 12px;
+
+    background:
+        linear-gradient(145deg, #482071, #24103f);
+}
+
+
+/* ==========================================================
+   6. VELVET EXTERIOR
+   ========================================================== */
+
+.rb-front,
+.rb-back,
+.rb-left,
+.rb-right,
+.rb-lid-front,
+.rb-lid-back,
+.rb-lid-left,
+.rb-lid-right,
+.rb-lid-top {
+    background-image:
+        radial-gradient(120% 90% at 25% 8%,
+            rgba(255, 255, 255, .24),
+            transparent 56%),
+        repeating-radial-gradient(circle at 30% 20%,
+            rgba(255, 255, 255, .035) 0 1px,
+            transparent 1px 3px),
+        linear-gradient(165deg,
+            var(--tone-a),
+            var(--tone-b));
+
+    box-shadow:
+        inset 0 0 calc(var(--w) * .055) rgba(18, 4, 40, .36),
+        inset 0 1px 2px rgba(255, 255, 255, .13);
+
+    border: 1px solid rgba(255, 255, 255, .10);
+}
+
+.rb-front,
+.rb-lid-front {
+    --tone-a: #8956c4;
+    --tone-b: #4e237f;
+}
+
+.rb-left,
+.rb-lid-left {
+    --tone-a: #9666d1;
+    --tone-b: #603493;
+}
+
+.rb-right,
+.rb-lid-right {
+    --tone-a: #572a8a;
+    --tone-b: #321653;
+}
+
+.rb-back,
+.rb-lid-back {
+    --tone-a: #4b2479;
+    --tone-b: #281044;
+}
+
+.rb-lid-top {
+    --tone-a: #a477d8;
+    --tone-b: #67399f;
+}
+
+.rb-front::before {
+    content: "";
+
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 0;
+
+    height: 3px;
+
+    border-radius: 50%;
+    background: var(--gold);
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .32);
+}
+
+
+/* ==========================================================
+   7. BOX INTERIOR
+   ========================================================== */
+
+.rb-in-back,
+.rb-in-left,
+.rb-in-right,
+.rb-floor {
+    background:
+        radial-gradient(90% 80% at 50% 20%,
+            rgba(255, 255, 255, .32),
+            transparent 70%),
+        linear-gradient(180deg,
+            #c5a5ed,
+            #9369cc);
+
+    box-shadow: inset 0 0 14px rgba(70, 25, 120, .28);
+}
+
+.rb-in-back {
+    left: 4px;
+    top: 0;
+
+    width: calc(var(--w) - 8px);
+    height: var(--fd);
+
+    transform:
+        translateZ(calc(var(--d) / -2 + 4px));
+}
+
+.rb-in-left {
+    width: calc(var(--d) - 8px);
+    height: var(--fd);
+
+    top: 0;
+    left: calc((var(--w) - var(--d)) / 2 + 4px);
+
+    transform:
+        rotateY(90deg) translateZ(calc(var(--w) / -2 + 4px));
+
+    filter: brightness(.94);
+}
+
+.rb-in-right {
+    width: calc(var(--d) - 8px);
+    height: var(--fd);
+
+    top: 0;
+    left: calc((var(--w) - var(--d)) / 2 + 4px);
+
+    transform:
+        rotateY(-90deg) translateZ(calc(var(--w) / -2 + 4px));
+
+    filter: brightness(.82);
+}
+
+.rb-floor {
+    left: 4px;
+
+    width: calc(var(--w) - 8px);
+    height: calc(var(--d) - 8px);
+
+    top: calc((var(--hb) - var(--d) + 8px) / 2);
+
+    transform:
+        rotateX(90deg) translateZ(calc(var(--hb) / 2 - var(--fd)));
+
+    border-radius: 7px;
+
+    background:
+        radial-gradient(ellipse at 50% 45%,
+            #d4b8f5 0%,
+            #b18ce3 58%,
+            #9164c9 100%);
+}
+
+
+/* ==========================================================
+   8. SOFT VELVET CUSHION
+   ========================================================== */
+
+.rb-cushion {
+    position: absolute;
+    display: block;
+
+    left: 19%;
+    top: 13%;
+
+    width: 62%;
+    height: 72%;
+
+    border-radius: 48%;
+
+    transform:
+        rotateX(90deg) translateZ(calc(var(--hb) / 2 - var(--fd) + 2px));
+
+    transform-style: preserve-3d;
+
+    background:
+        radial-gradient(ellipse at 35% 25%,
+            rgba(255, 255, 255, .65),
+            transparent 45%),
+        radial-gradient(ellipse at center,
+            #e4d1fa 0%,
+            #c5a5ec 55%,
+            #a27bd0 100%);
+
+    box-shadow:
+        inset 0 4px 9px rgba(255, 255, 255, .4),
+        inset 0 -5px 12px rgba(66, 28, 105, .22),
+        0 4px 9px rgba(48, 20, 80, .2);
+
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   9. HINGED LID
+   ========================================================== */
+
+.rb-lid {
+    position: absolute;
+
+    left: 0;
+    top: calc(var(--hl) * -1);
+
+    width: var(--w);
+    height: var(--hl);
+
+    transform-origin: 50% 100% calc(var(--d) / -2);
+    transform-style: preserve-3d;
+
+    transition: transform .65s ease;
+}
+
+/*
+   Hover animation intentionally removed.
+   The lid only opens when JavaScript adds .is-open.
+*/
+
+.ring-page.is-open .rb-lid {
+    transform: rotateX(104deg);
+
+    transition:
+        transform var(--lid-ms) cubic-bezier(.45, .05, .2, 1);
+}
+
+.rb-lid-front,
+.rb-lid-back {
+    left: 0;
+    top: 0;
+
+    width: var(--w);
+    height: var(--hl);
+
+    border-radius: 13px 13px 4px 4px;
+}
+
+.rb-lid-left,
+.rb-lid-right {
+    top: 0;
+
+    width: var(--d);
+    height: var(--hl);
+
+    left: calc((var(--w) - var(--d)) / 2);
+}
+
+.rb-lid-front {
+    transform: translateZ(calc(var(--d) / 2));
+    border-bottom: 2px solid #e6bd70;
+}
+
+.rb-lid-front::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 13%;
+    height: 30%;
+
+    transform: translateX(-50%);
+
+    border-radius: 3px 3px 7px 7px;
+
+    background: var(--gold);
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, .35),
+        inset 0 1px 1px rgba(255, 255, 255, .6);
+}
+
+.rb-lid-back {
+    transform:
+        rotateY(180deg) translateZ(calc(var(--d) / 2));
+}
+
+.rb-lid-left {
+    transform:
+        rotateY(-90deg) translateZ(calc(var(--w) / 2));
+}
+
+.rb-lid-right {
+    transform:
+        rotateY(90deg) translateZ(calc(var(--w) / 2));
+}
+
+.rb-lid-top,
+.rb-lid-under {
+    left: 0;
+
+    width: var(--w);
+    height: var(--d);
+
+    top: calc((var(--hl) - var(--d)) / 2);
+
+    border-radius: 13px;
+}
+
+.rb-lid-top {
+    transform:
+        rotateX(90deg) translateZ(calc(var(--hl) / 2));
+
+    border: 1px solid rgba(255, 255, 255, .15);
+
+    box-shadow:
+        inset 0 3px 8px rgba(255, 255, 255, .22),
+        inset 0 -5px 10px rgba(35, 10, 65, .2),
+        0 3px 8px rgba(35, 10, 65, .16);
+}
+
+.rb-lid-under {
+    transform:
+        rotateX(-90deg) translateZ(calc(var(--hl) / 2 - 2px));
+
+    background:
+        radial-gradient(80% 70% at 50% 40%,
+            #e0cef7,
+            #b18be2);
+
+    box-shadow: inset 0 0 18px rgba(80, 30, 130, .3);
+}
+
+
+/* ==========================================================
+   10. RING POSITION AND ANIMATION
+   ========================================================== */
+
+.rg-ring-wrap {
+    --rs: calc(var(--w) * .30);
+
+    position: absolute;
+
+    width: var(--rs);
+    height: var(--rs);
+
+    /*
+       Original ring placement preserved.
+       X = 50%
+       Y = 49%
+    */
+
+    left: 50%;
+    top: 49%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translate3d(-50%,
+            -50%,
+            calc(var(--hb) / 2 - var(--fd) + 8px)) scale(.76);
+
+    transform-origin: 50% 75%;
+
+    transition:
+        opacity .3s ease,
+        visibility 0s .3s,
+        transform .3s ease;
+
+    pointer-events: none;
+}
+
+/* Ring appears when the box opens */
+.ring-page.is-open .rg-ring-wrap {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translate3d(-50%,
+            -50%,
+            calc(var(--hb) / 2 - var(--fd) + 8px)) scale(1);
+
+    transition:
+        opacity var(--ring-in-ms) ease var(--ring-delay-ms),
+        visibility 0s var(--ring-delay-ms),
+        transform var(--ring-in-ms) cubic-bezier(.2, .8, .25, 1) var(--ring-delay-ms);
+}
+
+/* Ring disappears only when JavaScript adds .is-ring-gone */
+.ring-page.is-ring-gone .rg-ring-wrap {
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translate3d(-50%,
+            calc(var(--rs) * -1.3),
+            calc(var(--hb) / 2 - var(--fd) + 8px)) scale(.7);
+
+    transition:
+        opacity var(--vanish-ms) ease,
+        visibility 0s var(--vanish-ms),
+        transform var(--vanish-ms) ease-in;
+}
+
+/* Ring stays completely still after appearing */
+.rg-ring-spin {
+    position: absolute;
+    inset: 0;
+
+    transform: none;
+    transform-style: preserve-3d;
+
+    animation: none;
+}
+
+.rg-layer {
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    transform:
+        translateZ(calc((var(--i) - 4) * var(--w) * .0075));
+
+    background:
+        conic-gradient(from 25deg,
+            #713914,
+            #c17a3d,
+            #f8d39b,
+            #fff0d1,
+            #d78c4b,
+            #8a481e,
+            #e7a46a,
+            #fff0ce,
+            #713914);
+
+    -webkit-mask:
+        radial-gradient(circle,
+            transparent 0 66%,
+            #000 67%);
+
+    mask:
+        radial-gradient(circle,
+            transparent 0 66%,
+            #000 67%);
+
+    backface-visibility: visible;
+}
+
+.rg-layer[style*="--i:0"],
+.rg-layer[style*="--i:8"] {
+    filter: brightness(.68);
+}
+
+.rg-layer[style*="--i:1"],
+.rg-layer[style*="--i:7"] {
+    filter: brightness(.88);
+}
+
+/* Static ring highlight */
+.rg-glint {
+    position: absolute;
+
+    left: 14%;
+    top: 16%;
+
+    width: 14%;
+    height: 14%;
+
+    transform: translateZ(calc(var(--w) * .04));
+
+    background:
+        radial-gradient(circle,
+            #fff,
+            rgba(255, 255, 255, 0) 70%);
+
+    animation: none;
+
+    pointer-events: none;
+}
+
+/* Contact shadow */
+.rg-ring-contact-shadow {
+    position: absolute;
+    display: block;
+
+    left: 39%;
+    top: 27%;
+
+    width: 22%;
+    height: 6%;
+
+    border-radius: 50%;
+
+    transform:
+        translateZ(calc(var(--hb) / 2 - var(--fd) + 8px));
+
+    background: rgba(45, 18, 72, .55);
+
+    filter: blur(5px);
+    opacity: 0;
+
+    transition: opacity .5s ease var(--ring-delay-ms);
+
+    pointer-events: none;
+}
+
+.ring-page.is-open .rg-ring-contact-shadow {
+    opacity: .65;
+}
+
+.ring-page.is-ring-gone .rg-ring-contact-shadow {
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+
+/* ==========================================================
+   11. SPARKLES
+   ========================================================== */
+
+.ring-sparkles {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ring-sparkle {
+    position: absolute;
+
+    width: var(--s, 10px);
+    height: var(--s, 10px);
+
+    margin:
+        calc(var(--s, 10px) / -2) 0 0 calc(var(--s, 10px) / -2);
+
+    background:
+        radial-gradient(circle,
+            #fff 0%,
+            #ffe9b8 45%,
+            rgba(255, 233, 184, 0) 70%);
+
+    clip-path:
+        polygon(50% 0,
+            62% 38%,
+            100% 50%,
+            62% 62%,
+            50% 100%,
+            38% 62%,
+            0 50%,
+            38% 38%);
+
+    filter:
+        drop-shadow(0 0 4px rgba(255, 235, 190, .9));
+
+    opacity: 0;
+
+    animation:
+        ring-sparkle var(--d, 1.2s) ease-out forwards;
+}
+
+@keyframes ring-sparkle {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(.2) rotate(0);
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(var(--dx, 0), var(--dy, -20px)) scale(1) rotate(120deg);
+    }
+}
+
+
+/* ==========================================================
+   12. CAPTION
+   ========================================================== */
+
+.ring-caption {
+    position: relative;
+    z-index: 4;
+
+    margin: calc(var(--w) * .09) 0 0;
+    max-width: 90vw;
+
+    text-align: center;
+
+    font-size: clamp(1.1rem, 4.6vw, 1.6rem);
+    font-style: italic;
+    letter-spacing: .03em;
+
+    text-shadow:
+        0 2px 12px rgba(60, 20, 110, .8),
+        0 0 3px rgba(60, 20, 110, .7);
+
+    transition: opacity .6s ease;
+
+    animation: rg-pulse 3.2s ease-in-out infinite;
+}
+
+.ring-caption span {
+    display: block;
+
+    margin-top: .25em;
+
+    font-size: .72em;
+    font-style: normal;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+
+    opacity: .9;
+}
+
+.ring-page.is-open .ring-caption {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes rg-pulse {
+
+    0%,
+    100% {
+        opacity: .85;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* ==========================================================
+   13. BACK BUTTON
+   ========================================================== */
+
+.ring-back {
+    position: absolute;
+
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom) + 24px);
+
+    z-index: 5;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: .55em;
+
+    min-height: 46px;
+    padding: 0 1.7em;
+
+    transform: translateX(-50%);
+
+    border: 1px solid rgba(255, 255, 255, .62);
+    border-radius: 999px;
+
+    font: inherit;
+    font-size: 1.2rem;
+    letter-spacing: .1em;
+
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+
+    background:
+        linear-gradient(135deg,
+            rgba(122, 70, 190, .95),
+            rgba(73, 30, 128, .96));
+
+    box-shadow:
+        0 8px 24px rgba(50, 15, 95, .45),
+        inset 0 1px 0 rgba(255, 255, 255, .35);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 1.1s ease,
+        visibility 0s 1.1s;
+}
+
+.ring-back.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transition: opacity 1.1s ease;
+}
+
+.ring-back:focus-visible {
+    outline: 2px dashed #fff;
+    outline-offset: 4px;
+}
+
+.ring-back:hover {
+    filter: brightness(1.12);
+}
+
+
+/* ==========================================================
+   14. RESPONSIVE DESIGN
+   ========================================================== */
+
+@media (max-width: 600px) {
+    .ring-page {
+        --w: min(70vw, 39dvh, 330px);
+    }
+
+    .ring-stage {
+        padding-top: calc(var(--w) * .15);
+    }
+
+    .ring-title {
+        font-size: clamp(1.65rem, 7vw, 2.1rem);
+    }
+
+    .ring-caption {
+        margin-top: calc(var(--w) * .08);
+        font-size: clamp(1.05rem, 5vw, 1.35rem);
+    }
+
+    .ring-back {
+        bottom: calc(env(safe-area-inset-bottom) + 18px);
+        min-height: 44px;
+        font-size: 1.08rem;
+    }
+}
+
+/* Landscape phones */
+@media (max-height: 560px) and (orientation: landscape) {
+    .ring-page {
+        --w: min(38vw, 52vh, 290px);
+    }
+
+    .ring-stage {
+        padding-top: calc(var(--w) * .08);
+    }
+
+    .ring-title {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+    }
+
+    .ring-caption {
+        margin-top: 0;
+        font-size: 1rem;
+    }
+
+    .ring-back {
+        bottom: calc(env(safe-area-inset-bottom) + 8px);
+        min-height: 40px;
+    }
+}
+
+
+/* ==========================================================
+   15. REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .rg-head,
+    .ring-flowers__layer--back,
+    .ring-caption,
+    .ring-box__float,
+    .ring-box__tilt,
+    .ring-shadow,
+    .rg-ring-spin,
+    .rg-glint {
+        animation: none !important;
+    }
+}

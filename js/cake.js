@@ -14,6 +14,8 @@
     const bar = $('#bar');
     const note = $('#note');
     const sensInput = $('#sens');
+    const cakeNext = $('#cakeNext');
+    let nextButtonTimer = null;
 
     if (CONFIG.partnerName.trim()) $('#postTitle').textContent = 'Happy 1st Anniversary, ' + CONFIG.partnerName.trim();
 
@@ -112,25 +114,51 @@
     /* ---------------- Blow out / relight ---------------- */
     function blowOut() {
         if (!lit) return;
+
         lit = false;
         body.classList.add('out');
+
         stopMic();
         setUI('out');
+
         $('#msgPre').setAttribute('aria-hidden', 'true');
         $('#msgPost').removeAttribute('aria-hidden');
-        try { navigator.vibrate && navigator.vibrate([30, 40, 60]); } catch (_) { }
+
+        // Hide the Next button and start the 15-second timer
+        cakeNext.hidden = true;
+        clearTimeout(nextButtonTimer);
+
+        nextButtonTimer = setTimeout(() => {
+            if (!lit) {
+                cakeNext.hidden = false;
+            }
+        }, 15000);
+
+        try {
+            navigator.vibrate && navigator.vibrate([30, 40, 60]);
+        } catch (_) { }
+
         setTimeout(celebrate, 320);
     }
 
     function relight() {
         if (lit) return;
+
         lit = true;
         body.classList.remove('out');
+
+        // Cancel the Next button timer
+        clearTimeout(nextButtonTimer);
+        cakeNext.hidden = true;
+
         clearConfetti();
+
         $('#msgPost').setAttribute('aria-hidden', 'true');
         $('#msgPre').removeAttribute('aria-hidden');
+
         setBlow(0);
         setUI('idle');
+
         if (micWanted) startMic();
     }
 

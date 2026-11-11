@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#5b2a94">
+    <meta name="description" content="A little surprise for you.">
+    <title>A Little Surprise</title>
+    <link rel="stylesheet" href="../css/ring.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="ring-page">
+    <div id="sidebar-container"></div>
+
+
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <symbol id="rg-floret" viewBox="-12 -12 24 24">
+                <g fill="currentColor" stroke="rgba(55,30,90,.28)" stroke-width=".45">
+
+                    <!-- Four broad hydrangea sepals -->
+                    <path d="M0 -1 C-5 -2 -8 -7 -5 -10 C-2 -13 3 -10 3 -6 C4 -3 2 -1 0 -1Z" />
+                    <path d="M1 0 C2 -5 7 -8 10 -5 C13 -2 10 3 6 3 C3 4 1 2 1 0Z" />
+                    <path d="M0 1 C5 2 8 7 5 10 C2 13 -3 10 -3 6 C-4 3 -2 1 0 1Z" />
+                    <path d="M-1 0 C-2 5 -7 8 -10 5 C-13 2 -10 -3 -6 -3 C-3 -4 -1 -2 -1 0Z" />
+
+                </g>
+
+                <!-- Soft petal highlights -->
+                <g fill="none" stroke="rgba(255,255,255,.34)" stroke-width=".5">
+                    <path d="M0 -2 Q-2 -7 -4 -8" />
+                    <path d="M2 0 Q7 -2 8 -4" />
+                    <path d="M0 2 Q2 7 4 8" />
+                    <path d="M-2 0 Q-7 2 -8 4" />
+                </g>
+
+                <!-- Flower center -->
+                <circle r="1.65" fill="#f9e9bd" />
+                <circle r=".7" fill="#fff" opacity=".9" />
+            </symbol>
+        </defs>
+    </svg>
+
+
+    <!-- Full-screen hydrangea background -->
+    <div class="ring-flowers" id="ring-flowers" aria-hidden="true">
+        <div class="ring-flowers__layer ring-flowers__layer--back"></div>
+        <div class="ring-flowers__layer ring-flowers__layer--mid"></div>
+        <div class="ring-flowers__layer ring-flowers__layer--front"></div>
+    </div>
+
+    <main class="ring-scene" id="ring-scene">
+        <div class="ring-sparkles" id="ring-sparkles" aria-hidden="true"></div>
+
+        <div class="ring-stage">
+            <h1 class="ring-title">My Gift for You</h1>
+            <div class="ring-aura" aria-hidden="true"></div>
+            <div class="ring-shadow" aria-hidden="true"></div>
+
+            <button class="ring-box" id="ring-box" type="button" aria-label="Open the ring box">
+                <span class="ring-box__float">
+                    <span class="ring-box__tilt">
+
+                        <span class="rb-base">
+                            <!-- Outer box walls -->
+                            <span class="rb-face rb-front"></span>
+                            <span class="rb-face rb-back"></span>
+                            <span class="rb-face rb-left"></span>
+                            <span class="rb-face rb-right"></span>
+                            <span class="rb-face rb-bottom"></span>
+
+                            <!-- Soft interior -->
+                            <span class="rb-face rb-in-back"></span>
+                            <span class="rb-face rb-in-left"></span>
+                            <span class="rb-face rb-in-right"></span>
+                            <span class="rb-face rb-floor"></span>
+                            <span class="rb-cushion"></span>
+
+                            <!-- Ring contact shadow -->
+                            <span class="rg-ring-contact-shadow" aria-hidden="true"></span>
+
+                            <!-- Golden-copper ring -->
+                            <span class="rg-ring-wrap" id="ring-wrap">
+                                <span class="rg-ring-spin">
+                                    <span class="rg-layer" style="--i:0"></span>
+                                    <span class="rg-layer" style="--i:1"></span>
+                                    <span class="rg-layer" style="--i:2"></span>
+                                    <span class="rg-layer" style="--i:3"></span>
+                                    <span class="rg-layer" style="--i:4"></span>
+                                    <span class="rg-layer" style="--i:5"></span>
+                                    <span class="rg-layer" style="--i:6"></span>
+                                    <span class="rg-layer" style="--i:7"></span>
+                                    <span class="rg-layer" style="--i:8"></span>
+                                    <span class="rg-glint"></span>
+                                </span>
+                            </span>
+
+                            <!-- Hinged lid -->
+                            <span class="rb-lid">
+                                <span class="rb-face rb-lid-front"></span>
+                                <span class="rb-face rb-lid-back"></span>
+                                <span class="rb-face rb-lid-left"></span>
+                                <span class="rb-face rb-lid-right"></span>
+                                <span class="rb-face rb-lid-top"></span>
+                                <span class="rb-face rb-lid-under"></span>
+                            </span>
+                        </span>
+
+                    </span>
+                </span>
+            </button>
+
+            <p class="ring-caption" id="ring-caption">
+                A little surprise for you&hellip;
+                <span>Click to open</span>
+            </p>
+        </div>
+
+        <a class="ring-back" id="ring-back" href="./danie.html">
+            <span aria-hidden="true">&larr;</span> Back
+        </a>
+    </main>
+    <script type="module" src="../js/ring.js"></script>
+    <script type="module" src="../js/sidebar.js"></script>
+</body>
+
+</html>

@@ -47,6 +47,11 @@ export default defineConfig(({ command }) => ({
                     "html/flower.html"
                 ),
 
+                ring: resolve(
+                    __dirname,
+                    "html/ring.html"
+                ),
+
                 settings: resolve(
                     __dirname,
                     "html/settings.html"
