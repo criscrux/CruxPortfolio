@@ -37,6 +37,11 @@ export default defineConfig(({ command }) => ({
                     "html/danie.html"
                 ),
 
+                cake: resolve(
+                    __dirname,
+                    "html/cake.html"
+                ),
+
                 flower: resolve(
                     __dirname,
                     "html/flower.html"
