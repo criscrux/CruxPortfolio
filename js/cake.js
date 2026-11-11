@@ -1,8 +1,7 @@
 (() => {
     'use strict';
 
-    // Put her name here to show it in the headline after the candle goes out, e.g. 'Maria'.
-    const CONFIG = { partnerName: '' };
+    const CONFIG = { partnerName: 'Bubby' };
 
     const $ = (s) => document.querySelector(s);
     const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
